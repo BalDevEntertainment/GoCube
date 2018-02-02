@@ -32,3 +32,29 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+Library/
+Temp/
+node_modules/
+node_modules.meta
+obj/
+build/
+Builds/
+derived_data/
+.vs/
+.vscode/
+.idea/
+npm-search-result.json
+unit-tests.xml
+fastlane/report.xml
+Assets/Resources/VersionName.txt
+Assets/Resources/VersionName.txt.meta
+Assets/Standard Assets/package-lock.json
+Assets/Standard Assets/node_modules
+Assets/Standard Assets/package-lock.json.meta
+
+*.sln
+*.csproj
+*.log
+*.tgz"
+*.mobileprovision
