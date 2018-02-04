@@ -10,18 +10,22 @@ namespace GoCube.Presentation.PlayerEntity
 
         private void Awake()
         {
+            var movementComponent = GetComponent<IMovement>();
+            movementComponent.BindAnimator(GetComponent<IPlayerAnimationComponent>());
+
             _player = new Player(GetComponent<IInput>(),
-                GetComponent<IMovement>(), GetComponent<ICollision>());
+                movementComponent,
+                GetComponent<ICollision>());
+        }
+
+        public void SetOnDeath(Action onDeath)
+        {
+            _player.OnDeath += onDeath;
         }
 
         private void OnDestroy()
         {
             _player.OnDestroy();
-        }
-
-        public void OnDeath(Action onDeath)
-        {
-            _player.OnDeath += onDeath;
         }
     }
 }

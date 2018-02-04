@@ -9,8 +9,7 @@ namespace GoCube.Domain.PlayerEntity
         private readonly ICollision _collisionComponent;
         private readonly IInput _input;
 
-        public Player(IInput inputComponent, IMovement movementComponent,
-            ICollision collisionComponent)
+        public Player(IInput inputComponent, IMovement movementComponent, ICollision collisionComponent)
         {
             _input = inputComponent;
             _movement = movementComponent;

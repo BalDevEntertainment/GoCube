@@ -11,7 +11,7 @@ namespace GoCube.Infraestructure.GameEntity
 
         private void Start()
         {
-            _player.OnDeath(EndGame);
+            _player.SetOnDeath(EndGame);
         }
 
         private void EndGame()

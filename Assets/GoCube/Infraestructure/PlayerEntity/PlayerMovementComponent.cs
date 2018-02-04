@@ -1,4 +1,5 @@
-﻿using GoCube.Domain.PlayerEntity;
+﻿using System;
+using GoCube.Domain.PlayerEntity;
 using UnityEngine;
 
 namespace GoCube.Infraestructure.PlayerEntity
@@ -6,9 +7,12 @@ namespace GoCube.Infraestructure.PlayerEntity
     public class PlayerMovementComponent : MonoBehaviour, IMovement
     {
         public GameObject NextPositionMarker;
-        private Vector3 _destination;
-        private float _acumulatedTimed;
+        public event Action OnJump = delegate { };
+        public event Action OnIdle = delegate { };
+
+        private Vector2 _destination;
         private Rigidbody2D _rigidBody;
+        private float _movingTime;
 
         private void Start()
         {
@@ -18,20 +22,43 @@ namespace GoCube.Infraestructure.PlayerEntity
 
         public void Jump()
         {
-            _destination = new Vector3(NextPositionMarker.transform.position.x,
-                transform.position.y,
-                transform.position.z);
-            _acumulatedTimed = 0f;
+            _movingTime = 0f;
+            _destination = new Vector2(NextPositionMarker.transform.position.x,
+                transform.position.y);
+            OnJump();
+        }
+
+        public void BindAnimator(IPlayerAnimationComponent animationComponent)
+        {
+            OnJump += animationComponent.Jump;
+            OnIdle += animationComponent.Idle;
         }
 
         private void Update()
         {
-            if (_acumulatedTimed < 1f)
+            if (!ShouldMove()) return;
+
+            if (HasReachedDestination())
             {
-                _rigidBody.MovePosition(Vector3.Lerp(_rigidBody.position, _destination,
-                    _acumulatedTimed));
-                _acumulatedTimed += Time.deltaTime;
+                _movingTime += Time.deltaTime;
+                _rigidBody.MovePosition(
+                    Vector2.Lerp(_rigidBody.position, _destination, _movingTime));
             }
+            else
+            {
+                OnIdle();
+                _movingTime = -1f;
+            }
+        }
+
+        private bool ShouldMove()
+        {
+            return _movingTime >= 0;
+        }
+
+        private bool HasReachedDestination()
+        {
+            return _rigidBody.position != _destination;
         }
     }
 }
