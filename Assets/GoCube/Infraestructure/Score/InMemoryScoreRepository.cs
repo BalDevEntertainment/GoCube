@@ -1,17 +1,17 @@
-﻿using Assets.GoCube.Domain.Score;
+﻿using GoCube.Domain.Score;
 
-namespace Assets.GoCube.Infraestructure.Score {
+namespace GoCube.Infraestructure.Score {
     public class InMemoryScoreRepository : ScoreRepository {
 
-        private int score;
+        private int _score;
         
         public int Add(int quantity) {
-            score += quantity;
-            return score;
+            _score += quantity;
+            return _score;
         }
 
         public void Clear() {
-            score = 0;
+            _score = 0;
         }
     }
 }

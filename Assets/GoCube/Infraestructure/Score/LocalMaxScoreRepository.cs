@@ -1,7 +1,7 @@
-﻿using Assets.GoCube.Domain.Score;
+﻿using GoCube.Domain.Score;
 using UnityEngine;
 
-namespace Assets.GoCube.Infraestructure.Score {
+namespace GoCube.Infraestructure.Score {
 
     public class LocalMaxScoreRepository : MaxScoreRepository {
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.GoCube.Domain.Score {
+namespace GoCube.Domain.Score {
     
     public class ScoreService {
         

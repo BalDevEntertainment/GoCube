@@ -1,0 +1,22 @@
+﻿using GoCube.Presentation.Character;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+namespace GoCube.Infraestructure.GameEntity
+{
+    public class GameManagerComponent : MonoBehaviour
+    {
+        [SerializeField]
+        private PlayerComponent _player;
+
+        private void Start()
+        {
+            _player.OnDeath(EndGame);
+        }
+
+        private void EndGame()
+        {
+            SceneManager.LoadScene("MainScene");
+        }
+    }
+}

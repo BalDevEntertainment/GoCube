@@ -1,4 +1,4 @@
-﻿namespace Assets.GoCube.Domain.Score {
+﻿namespace GoCube.Domain.Score {
     
     public interface ScoreRepository {
         int Add(int quantity);
