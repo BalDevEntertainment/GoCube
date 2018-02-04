@@ -2,7 +2,7 @@
 using GoCube.Domain.PlayerEntity;
 using UnityEngine;
 
-namespace GoCube.Presentation.Character
+namespace GoCube.Presentation.PlayerEntity
 {
     public class PlayerComponent : MonoBehaviour
     {

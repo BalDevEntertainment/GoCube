@@ -1,4 +1,4 @@
-﻿using GoCube.Presentation.Character;
+﻿using GoCube.Presentation.PlayerEntity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
