@@ -9,18 +9,13 @@ namespace GoCube.Domain.PlayerEntity
         private readonly ICollision _collisionComponent;
         private readonly IInput _input;
 
-        public Player(IInput inputComponent, IMovement movementComponent, ICollision collisionComponent)
+        public Player(IInput inputComponent, IMovement movementComponent,
+            ICollision collisionComponent)
         {
             _input = inputComponent;
             _movement = movementComponent;
             _collisionComponent = collisionComponent;
             Init();
-        }
-
-        private void Init()
-        {
-            _input.OnJump += Jump;
-            _collisionComponent.OnCollision += Die;
         }
 
         public void OnDestroy()
@@ -29,14 +24,20 @@ namespace GoCube.Domain.PlayerEntity
             _collisionComponent.OnCollision -= Die;
         }
 
+        private void Init()
+        {
+            _input.OnJump += Jump;
+            _collisionComponent.OnCollision += Die;
+        }
+
+        private void Die(string tag)
+        {
+            if(tag.Equals("Death")) OnDeath();
+        }
+
         private void Jump()
         {
             _movement.Jump();
-        }
-
-        private void Die()
-        {
-            OnDeath();
         }
     }
 }

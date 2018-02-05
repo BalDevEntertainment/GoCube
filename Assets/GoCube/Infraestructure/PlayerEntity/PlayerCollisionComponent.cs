@@ -6,11 +6,11 @@ namespace GoCube.Infraestructure.PlayerEntity
 {
     public class PlayerCollisionComponent : MonoBehaviour, ICollision
     {
-        public event Action OnCollision = delegate { };
+        public event Action<string> OnCollision = delegate { };
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            OnCollision();
+            OnCollision(other.tag);
         }
     }
 }
