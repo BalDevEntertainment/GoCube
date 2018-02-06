@@ -1,4 +1,5 @@
-﻿using GoCube.Domain.Score;
+﻿using Assets.GoCube.Domain.Ads;
+using GoCube.Domain.Score;
 using GoCube.Infraestructure.Provider;
 using GoCube.Util;
 
@@ -12,5 +13,8 @@ namespace GoCube.Domain.Provider {
                 InfrastructureProvider.ProvideMaxScore()));
         }
 
+        public static AdsService ProvideAdsService() {
+            return ProviderCache.GetOrInstanciate<AdsService>(() => new AdsService(new UnityAdsProvider()));
+        }
     }
 }
