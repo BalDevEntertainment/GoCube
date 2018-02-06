@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine.UI;
 
 namespace GoCube.Domain.Score {
     
@@ -18,12 +19,19 @@ namespace GoCube.Domain.Score {
         public void IncrementScore(int quantity) {
             var actualScore = scoreRepository.Add(quantity);
             ScoreChanged(actualScore);
-            if (actualScore > maxScoreRepository.Find()) {
+            var maxScore = maxScoreRepository.Find();
+            if (actualScore > maxScore) {
                 maxScoreRepository.Update(actualScore);
                 MaxScoreReached(actualScore);
             }
-                
         }
-        
+
+        public void ClearScore() {
+            scoreRepository.Clear();
+        }
+
+        public int FindMaxScore() {
+            return maxScoreRepository.Find();
+        }
     }
 }
