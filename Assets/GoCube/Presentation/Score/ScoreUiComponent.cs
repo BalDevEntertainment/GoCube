@@ -15,16 +15,18 @@ namespace GoCube.Presentation.Score
             _scoreService = ServiceProvider.ProvideScore();
             _scoreService.ScoreChanged += OnScoreChanged;
             _scoreText = GetComponent<Text>();
+            _scoreText.text = "Score: 0000";
         }
 
         private void OnDestroy()
         {
             _scoreService.ScoreChanged -= OnScoreChanged;
+            _scoreService.ClearScore();
         }
 
         private void OnScoreChanged(int score)
         {
-            _scoreText.text = score.ToString("0000");
+            _scoreText.text = "Score: " + score.ToString("0000");
         }
     }
 }

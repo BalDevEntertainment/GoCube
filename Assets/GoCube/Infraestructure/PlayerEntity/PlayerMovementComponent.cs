@@ -1,18 +1,20 @@
 ﻿using System;
 using GoCube.Domain.PlayerEntity;
+using GoCube.Infraestructure.PlayerEntity.Marker;
 using UnityEngine;
 
 namespace GoCube.Infraestructure.PlayerEntity
 {
     public class PlayerMovementComponent : MonoBehaviour, IMovement
     {
-        public GameObject NextPositionMarker;
+        public MarkerPositionComponent NextPositionMarker;
         public event Action OnJump = delegate { };
         public event Action OnIdle = delegate { };
 
         private Vector2 _destination;
         private Rigidbody2D _rigidBody;
         private float _movingTime;
+        private float _speedModifier;
 
         private void Start()
         {
@@ -22,10 +24,12 @@ namespace GoCube.Infraestructure.PlayerEntity
 
         public void Jump()
         {
-            _movingTime = 0f;
+            NextPositionMarker.Stop();
             _destination = new Vector2(NextPositionMarker.transform.position.x,
                 transform.position.y);
             OnJump();
+            _speedModifier = NextPositionMarker.DestinationDistance / transform.InverseTransformPoint(_destination.x, 0, 0).x;
+            _movingTime = 0f;
         }
 
         public void BindAnimator(IPlayerAnimationComponent animationComponent)
@@ -38,16 +42,17 @@ namespace GoCube.Infraestructure.PlayerEntity
         {
             if (!ShouldMove()) return;
 
-            if (HasReachedDestination())
+            if (!HasReachedDestination())
             {
                 _movingTime += Time.deltaTime;
                 _rigidBody.MovePosition(
-                    Vector2.Lerp(_rigidBody.position, _destination, _movingTime));
+                    Vector2.Lerp(_rigidBody.position, _destination, _movingTime * _speedModifier));
             }
             else
             {
                 OnIdle();
                 _movingTime = -1f;
+                NextPositionMarker.Resume();
             }
         }
 
@@ -58,7 +63,7 @@ namespace GoCube.Infraestructure.PlayerEntity
 
         private bool HasReachedDestination()
         {
-            return _rigidBody.position != _destination;
+            return _rigidBody.position == _destination;
         }
     }
 }
