@@ -1,12 +1,13 @@
 ﻿using System;
 using GoCube.Domain.PlayerEntity;
+using GoCube.Infraestructure.PlayerEntity.Marker;
 using UnityEngine;
 
 namespace GoCube.Infraestructure.PlayerEntity
 {
     public class PlayerMovementComponent : MonoBehaviour, IMovement
     {
-        public GameObject NextPositionMarker;
+        public MarkerPositionComponent NextPositionMarker;
         public event Action OnJump = delegate { };
         public event Action OnIdle = delegate { };
 
@@ -23,6 +24,7 @@ namespace GoCube.Infraestructure.PlayerEntity
         public void Jump()
         {
             _movingTime = 0f;
+            NextPositionMarker.Stop();
             _destination = new Vector2(NextPositionMarker.transform.position.x,
                 transform.position.y);
             OnJump();
@@ -48,6 +50,7 @@ namespace GoCube.Infraestructure.PlayerEntity
             {
                 OnIdle();
                 _movingTime = -1f;
+                NextPositionMarker.Resume();
             }
         }
 

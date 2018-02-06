@@ -19,11 +19,6 @@ namespace GoCube.Infraestructure.PlayerEntity.Marker
             return new MarkerDirection(-1);
         }
 
-        public static MarkerDirection None()
-        {
-            return new MarkerDirection(0);
-        }
-
         public static int operator *(MarkerDirection direction, int someInt)
         {
             return direction._value * someInt;
