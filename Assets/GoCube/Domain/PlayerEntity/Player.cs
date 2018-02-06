@@ -7,14 +7,16 @@ namespace GoCube.Domain.PlayerEntity
         public event Action OnDeath = delegate { };
         private readonly IMovement _movement;
         private readonly ICollision _collisionComponent;
+        private readonly IPlayerAnimationComponent _playerAnimationComponent;
         private readonly IInput _input;
 
         public Player(IInput inputComponent, IMovement movementComponent,
-            ICollision collisionComponent)
+            ICollision collisionComponent, IPlayerAnimationComponent playerAnimationComponent)
         {
             _input = inputComponent;
             _movement = movementComponent;
             _collisionComponent = collisionComponent;
+            _playerAnimationComponent = playerAnimationComponent;
             Init();
         }
 
@@ -32,7 +34,10 @@ namespace GoCube.Domain.PlayerEntity
 
         private void Die(string tag)
         {
-            if(tag.Equals("Death")) OnDeath();
+            if (tag.Equals("Death"))
+            {
+                _playerAnimationComponent.Death(() => OnDeath.Invoke());
+            }
         }
 
         private void Jump()

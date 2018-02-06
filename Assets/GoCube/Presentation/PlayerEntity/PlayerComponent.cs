@@ -12,11 +12,13 @@ namespace GoCube.Presentation.PlayerEntity
         private void Awake()
         {
             var movementComponent = GetComponent<IMovement>();
-            movementComponent.BindAnimator(GetComponent<IPlayerAnimationComponent>());
+            var playerAnimationComponent = GetComponent<IPlayerAnimationComponent>();
+            movementComponent.BindAnimator(playerAnimationComponent);
 
             _player = new Player(GetComponent<IInput>(),
                 movementComponent,
-                GetComponent<ICollision>());
+                GetComponent<ICollision>(),
+                playerAnimationComponent);
         }
 
         private void Start()
