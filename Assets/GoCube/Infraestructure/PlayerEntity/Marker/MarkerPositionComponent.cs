@@ -5,9 +5,9 @@ namespace GoCube.Infraestructure.PlayerEntity.Marker
 {
     public class MarkerPositionComponent : MonoBehaviour
     {
+        [SerializeField] public float DestinationDistance = 3;
         [SerializeField] private int _speed = 5;
         [SerializeField] private float _originDistance = 1;
-        [SerializeField] private float _destinationDistance = 3;
         private readonly Action _translate;
         private readonly Action _stay;
         private MarkerDirection _direction = MarkerDirection.Right();
@@ -40,7 +40,7 @@ namespace GoCube.Infraestructure.PlayerEntity.Marker
 
         private MarkerDirection CalculateMarkerDirection()
         {
-            if (transform.localPosition.x > _destinationDistance)
+            if (transform.localPosition.x > DestinationDistance)
             {
                 return MarkerDirection.Left();
             }
