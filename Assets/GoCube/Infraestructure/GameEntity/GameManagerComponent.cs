@@ -1,4 +1,5 @@
-﻿using GoCube.Presentation.PlayerEntity;
+﻿using System;
+using GoCube.Presentation.PlayerEntity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Advertisements;
@@ -8,7 +9,7 @@ namespace GoCube.Infraestructure.GameEntity
 
     public class GameManagerComponent : MonoBehaviour
     {
-
+        public event Action OnPlayerDies = delegate {  };
         private string _androidGameId = "1694396";
 
         [SerializeField]
@@ -20,12 +21,12 @@ namespace GoCube.Infraestructure.GameEntity
 
         private void Start()
         {
-            _player.SetOnDeath(EndGame);
+            _player.SetOnDeath(() => OnPlayerDies.Invoke());
         }
 
         private void EndGame()
         {
-            SceneManager.LoadScene("MainScene");
+            //SceneManager.LoadScene("MainScene");
         }
     }
 }

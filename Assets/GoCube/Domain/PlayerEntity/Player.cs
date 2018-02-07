@@ -36,6 +36,7 @@ namespace GoCube.Domain.PlayerEntity
         {
             if (tag.Equals("Death"))
             {
+                _input.Disable();
                 _playerAnimationComponent.Death(() => OnDeath.Invoke());
             }
         }

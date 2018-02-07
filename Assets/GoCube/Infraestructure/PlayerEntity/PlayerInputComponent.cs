@@ -7,6 +7,11 @@ namespace GoCube.Infraestructure.PlayerEntity
     public class PlayerInputComponent : MonoBehaviour, IInput
     {
         public event Action OnJump = delegate { };
+        public void Disable()
+        {
+            enabled = false;
+        }
+
         private Player _player;
 
         private void Update()
