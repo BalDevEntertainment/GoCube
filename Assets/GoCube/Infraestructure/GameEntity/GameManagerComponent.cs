@@ -15,6 +15,11 @@ namespace GoCube.Infraestructure.GameEntity
         [SerializeField]
         private PlayerComponent _player;
 
+        public void RestartGame()
+        {
+            SceneManager.LoadScene("MainScene");
+        }
+
         private void Awake() {
             Advertisement.Initialize(_androidGameId);
         }
@@ -22,11 +27,6 @@ namespace GoCube.Infraestructure.GameEntity
         private void Start()
         {
             _player.SetOnDeath(() => OnPlayerDies.Invoke());
-        }
-
-        private void EndGame()
-        {
-            //SceneManager.LoadScene("MainScene");
         }
     }
 }

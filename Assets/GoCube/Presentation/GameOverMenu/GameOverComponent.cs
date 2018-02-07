@@ -1,4 +1,5 @@
-﻿using GoCube.Infraestructure.GameEntity;
+﻿using System;
+using GoCube.Infraestructure.GameEntity;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,6 +22,11 @@ namespace GoCube.Presentation.GameOverMenu
         {
             _accumulatedTime += Time.deltaTime;
             _reviveIcon.fillAmount = 1 - _accumulatedTime / _timeToRevive;
+
+            if (Math.Abs(_accumulatedTime - _timeToRevive) < 0.01f)
+            {
+                _gameManagerComponent.RestartGame();
+            }
         }
 
         private void OnEnable()
