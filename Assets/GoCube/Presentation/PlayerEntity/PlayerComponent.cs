@@ -32,6 +32,9 @@ namespace GoCube.Presentation.PlayerEntity
             _lineRenderer.SetPosition(1, new Vector3(transform.Find("TargetPositionMarker").localPosition.x, destPosi.y, destPosi.z));
         }
 
+        public Player GetPlayer() {
+            return _player;
+        }
         public void SetOnDeath(Action onDeath)
         {
             _player.OnDeath += onDeath;

@@ -5,6 +5,8 @@ namespace GoCube.Domain.PlayerEntity
     public class Player
     {
         public event Action OnDeath = delegate { };
+        public event Action Jumped = delegate { };
+
         private readonly IMovement _movement;
         private readonly ICollision _collisionComponent;
         private readonly IPlayerAnimationComponent _playerAnimationComponent;
@@ -43,6 +45,7 @@ namespace GoCube.Domain.PlayerEntity
         private void Jump()
         {
             _movement.Jump();
+            Jumped();
         }
     }
 }
