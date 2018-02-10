@@ -41,5 +41,9 @@ namespace GoCube.Presentation.PlayerEntity
         {
             _player.OnDestroy();
         }
+
+        public void Revive() {
+            _player.Revive();
+        }
     }
 }

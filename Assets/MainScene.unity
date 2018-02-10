@@ -1554,36 +1554,6 @@ Prefab:
       propertyPath: _gameManagerComponent
       value: 
       objectReference: {fileID: 1920209516}
-    - target: {fileID: 224205823959126982, guid: 37036e383b09143449447970c097720d,
-        type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224205823959126982, guid: 37036e383b09143449447970c097720d,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224205823959126982, guid: 37036e383b09143449447970c097720d,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224205823959126982, guid: 37036e383b09143449447970c097720d,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224205823959126982, guid: 37036e383b09143449447970c097720d,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224205823959126982, guid: 37036e383b09143449447970c097720d,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 33.199997
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 37036e383b09143449447970c097720d, type: 2}
   m_IsPrefabParent: 0

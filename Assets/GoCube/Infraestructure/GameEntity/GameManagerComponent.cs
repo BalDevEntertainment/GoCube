@@ -28,5 +28,9 @@ namespace GoCube.Infraestructure.GameEntity
         {
             _player.SetOnDeath(() => OnPlayerDies.Invoke());
         }
+
+        public void Resume() {
+            _player.Revive();
+        }
     }
 }

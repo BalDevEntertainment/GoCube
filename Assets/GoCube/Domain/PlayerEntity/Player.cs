@@ -32,6 +32,10 @@ namespace GoCube.Domain.PlayerEntity
             _collisionComponent.OnCollision += Die;
         }
 
+        public void Revive() {
+            _input.Enable();
+        }
+
         private void Die(string tag)
         {
             if (tag.Equals("Death"))

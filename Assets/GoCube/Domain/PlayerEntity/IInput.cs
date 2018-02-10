@@ -6,5 +6,6 @@ namespace GoCube.Domain.PlayerEntity
     {
         event Action OnJump;
         void Disable();
+        void Enable();
     }
 }

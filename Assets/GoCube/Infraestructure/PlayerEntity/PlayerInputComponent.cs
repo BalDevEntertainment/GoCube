@@ -12,6 +12,11 @@ namespace GoCube.Infraestructure.PlayerEntity
             enabled = false;
         }
 
+        public void Enable()
+        {
+            enabled = true;
+        }
+
         private Player _player;
 
         private void Update()

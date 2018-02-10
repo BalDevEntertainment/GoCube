@@ -1,4 +1,5 @@
-﻿using Assets.GoCube.Domain.Ads;
+﻿using System;
+using Assets.GoCube.Domain.Ads;
 using GoCube.Domain.Provider;
 using UnityEngine;
 using UnityEngine.Advertisements;
@@ -7,7 +8,7 @@ using UnityEngine.UI;
 public class AdsComponent : MonoBehaviour {
 
 	public Button AdsButton;
-
+	public event Action<ResultType> OnAdsVideoResult = delegate {  };
 	public string placementId = "rewardedVideo";
 	private AdsService adsService;
 
@@ -23,9 +24,7 @@ public class AdsComponent : MonoBehaviour {
 	}
 
 	void ShowAd () {
-		adsService.VideoAdExecuted += result => {
-			Debug.Log("LLEGO " + result.ResultType);
-		};
+		adsService.VideoAdExecuted += result => { OnAdsVideoResult(result.ResultType); };
 		adsService.PlayVideoReward();
 	}
 }
