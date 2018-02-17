@@ -26,11 +26,14 @@ namespace GoCube.Infraestructure.GameEntity
 
         private void Start()
         {
-            _player.SetOnDeath(() => OnPlayerDies.Invoke());
+            _player.SetOnDeath(() => {
+                OnPlayerDies.Invoke();
+            });
         }
 
         public void Resume() {
             _player.Revive();
         }
+
     }
 }

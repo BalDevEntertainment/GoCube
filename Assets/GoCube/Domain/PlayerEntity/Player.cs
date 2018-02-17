@@ -34,6 +34,7 @@ namespace GoCube.Domain.PlayerEntity
 
         public void Revive() {
             _input.Enable();
+            _collisionComponent.Enable();
         }
 
         private void Die(string tag)
@@ -41,6 +42,7 @@ namespace GoCube.Domain.PlayerEntity
             if (tag.Equals("Death"))
             {
                 _input.Disable();
+                _collisionComponent.Disable();
                 _playerAnimationComponent.Death(() => OnDeath.Invoke());
             }
         }
@@ -48,6 +50,10 @@ namespace GoCube.Domain.PlayerEntity
         private void Jump()
         {
             _movement.Jump();
+        }
+
+        public void EnableCollision() {
+            _collisionComponent.Enable();
         }
     }
 }

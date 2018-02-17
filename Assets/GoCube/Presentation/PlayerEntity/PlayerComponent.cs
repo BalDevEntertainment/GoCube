@@ -8,21 +8,22 @@ namespace GoCube.Presentation.PlayerEntity
     {
         private Player _player;
         private LineRenderer _lineRenderer;
+        private IMovement movementComponent;
+        private IPlayerAnimationComponent playerAnimationComponent;
 
         private void Awake()
         {
-            var movementComponent = GetComponent<IMovement>();
-            var playerAnimationComponent = GetComponent<IPlayerAnimationComponent>();
+            movementComponent = GetComponent<IMovement>();
+            playerAnimationComponent = GetComponent<IPlayerAnimationComponent>();
             movementComponent.BindAnimator(playerAnimationComponent);
-
-            _player = new Player(GetComponent<IInput>(),
-                movementComponent,
-                GetComponent<ICollision>(),
-                playerAnimationComponent);
         }
 
         private void Start()
         {
+            _player = new Player(GetComponent<IInput>(),
+                movementComponent,
+                GetComponent<ICollision>(),
+                playerAnimationComponent);
             _lineRenderer = GetComponent<LineRenderer>();
         }
 
@@ -44,6 +45,10 @@ namespace GoCube.Presentation.PlayerEntity
 
         public void Revive() {
             _player.Revive();
+        }
+
+        public void EnableCollision() {
+            _player.EnableCollision();
         }
     }
 }
