@@ -38,6 +38,16 @@ namespace GoCube.Infraestructure.PlayerEntity
             OnIdle += animationComponent.Idle;
         }
 
+        public void Enable()
+        {
+            enabled = true;
+        }
+
+        public void Disable()
+        {
+            enabled = false;
+        }
+
         private void Update()
         {
             if (!ShouldMove()) return;

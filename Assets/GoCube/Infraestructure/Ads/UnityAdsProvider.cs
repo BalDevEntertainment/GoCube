@@ -1,7 +1,8 @@
 ﻿using System;
+using GoCube.Domain.Ads;
 using UnityEngine.Advertisements;
 
-namespace Assets.GoCube.Domain.Ads {
+namespace GoCube.Infraestructure.Ads {
     public class UnityAdsProvider : IAdsProvider {
         private string placementId = "rewardedVideo";
 

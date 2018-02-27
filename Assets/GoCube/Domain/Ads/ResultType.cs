@@ -1,4 +1,4 @@
-﻿namespace Assets.GoCube.Domain.Ads {
+﻿namespace GoCube.Domain.Ads {
     public enum ResultType {
         Finished,
         Skipped,

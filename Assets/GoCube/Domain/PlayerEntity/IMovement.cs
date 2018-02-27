@@ -8,5 +8,7 @@ namespace GoCube.Domain.PlayerEntity
         event Action OnIdle;
         void Jump();
         void BindAnimator(IPlayerAnimationComponent getComponent);
+        void Enable();
+        void Disable();
     }
 }

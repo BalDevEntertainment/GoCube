@@ -1,9 +1,9 @@
 ﻿using System;
-using Assets.GoCube.Domain.Ads;
+using GoCube.Domain.Ads;
 using GoCube.Domain.Provider;
 using UnityEngine;
-using UnityEngine.Advertisements;
 using UnityEngine.UI;
+using UnityEngine.Advertisements;
 
 public class AdsComponent : MonoBehaviour {
 

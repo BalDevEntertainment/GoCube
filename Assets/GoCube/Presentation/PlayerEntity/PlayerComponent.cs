@@ -1,5 +1,7 @@
 ﻿using System;
+using GoCube.Domain.GameEntity;
 using GoCube.Domain.PlayerEntity;
+using GoCube.Infraestructure.GameEntity;
 using UnityEngine;
 
 namespace GoCube.Presentation.PlayerEntity
@@ -8,22 +10,24 @@ namespace GoCube.Presentation.PlayerEntity
     {
         private Player _player;
         private LineRenderer _lineRenderer;
-        private IMovement movementComponent;
-        private IPlayerAnimationComponent playerAnimationComponent;
+        private IMovement _movementComponent;
+        private IPlayerAnimationComponent _playerAnimationComponent;
+        private IGameEvents _gameEvents;
 
         private void Awake()
         {
-            movementComponent = GetComponent<IMovement>();
-            playerAnimationComponent = GetComponent<IPlayerAnimationComponent>();
-            movementComponent.BindAnimator(playerAnimationComponent);
+            _movementComponent = GetComponent<IMovement>();
+            _playerAnimationComponent = GetComponent<IPlayerAnimationComponent>();
+            _movementComponent.BindAnimator(_playerAnimationComponent);
         }
 
         private void Start()
         {
             _player = new Player(GetComponent<IInput>(),
-                movementComponent,
+                _movementComponent,
                 GetComponent<ICollision>(),
-                playerAnimationComponent);
+                _playerAnimationComponent,
+                GameObject.FindWithTag("GameManager").GetComponent<GameManagerComponent>());
             _lineRenderer = GetComponent<LineRenderer>();
         }
 

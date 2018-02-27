@@ -1,4 +1,5 @@
 ﻿using System;
+using GoCube.Domain.GameEntity;
 
 namespace GoCube.Domain.PlayerEntity
 {
@@ -8,22 +9,21 @@ namespace GoCube.Domain.PlayerEntity
         private readonly IMovement _movement;
         private readonly ICollision _collisionComponent;
         private readonly IPlayerAnimationComponent _playerAnimationComponent;
+        private readonly IGameEvents _gameEvents;
         private readonly IInput _input;
 
+        private bool _jumped;
+
         public Player(IInput inputComponent, IMovement movementComponent,
-            ICollision collisionComponent, IPlayerAnimationComponent playerAnimationComponent)
+            ICollision collisionComponent, IPlayerAnimationComponent playerAnimationComponent,
+            IGameEvents gameEvents)
         {
             _input = inputComponent;
             _movement = movementComponent;
             _collisionComponent = collisionComponent;
             _playerAnimationComponent = playerAnimationComponent;
+            _gameEvents = gameEvents;
             Init();
-        }
-
-        public void OnDestroy()
-        {
-            _input.OnJump -= Jump;
-            _collisionComponent.OnCollision -= Die;
         }
 
         private void Init()
@@ -32,8 +32,18 @@ namespace GoCube.Domain.PlayerEntity
             _collisionComponent.OnCollision += Die;
         }
 
+        public void OnDestroy()
+        {
+            _input.OnJump -= Jump;
+            _collisionComponent.OnCollision -= Die;
+        }
+
         public void Revive() {
             _input.Enable();
+            _collisionComponent.Enable();
+        }
+
+        public void EnableCollision() {
             _collisionComponent.Enable();
         }
 
@@ -49,11 +59,13 @@ namespace GoCube.Domain.PlayerEntity
 
         private void Jump()
         {
-            _movement.Jump();
-        }
+            if (!_jumped)
+            {
+                _gameEvents.StartGame();
+                _jumped = true;
+            }
 
-        public void EnableCollision() {
-            _collisionComponent.Enable();
+            _movement.Jump();
         }
     }
 }
