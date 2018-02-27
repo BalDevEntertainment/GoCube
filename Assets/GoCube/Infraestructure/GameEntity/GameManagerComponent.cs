@@ -29,6 +29,11 @@ namespace GoCube.Infraestructure.GameEntity
             SceneManager.LoadScene("MainScene");
         }
 
+        public void ResumeGame()
+        {
+            _player.Revive();
+        }
+
         private void Awake() {
             Advertisement.Initialize(_androidGameId);
         }

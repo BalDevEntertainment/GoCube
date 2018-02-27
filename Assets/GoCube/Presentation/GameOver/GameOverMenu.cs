@@ -32,7 +32,18 @@ namespace GoCube.Presentation.GameOver
 
         public void ReviveTimeIsOver()
         {
-            //Restart game
+            _gameEvents.RestartGame();
+        }
+
+        public void RestartGame()
+        {
+            _gameEvents.RestartGame();
+        }
+
+        public void ResumeGame()
+        {
+            _gameOverUi.Hide();
+            _gameEvents.ResumeGame();
         }
     }
 }

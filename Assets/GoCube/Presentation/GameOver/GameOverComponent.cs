@@ -55,14 +55,13 @@ namespace GoCube.Presentation.GameOver
 
         private void OnAdsVideoResult(ResultType resultType)
         {
-            if (resultType.Equals(ResultType.Failed) || resultType.Equals(ResultType.Skipped))
+             if (resultType.Equals(ResultType.Failed) || resultType.Equals(ResultType.Skipped))
             {
-                //_gameManagerComponent.RestartGame();
+                _gameOverMenu.RestartGame();
             }
             else
             {
-                //_gameManagerComponent.Resume();
-                gameObject.SetActive(false);
+                _gameOverMenu.ResumeGame();
             }
             Reset();
         }

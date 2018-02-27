@@ -7,5 +7,7 @@ namespace GoCube.Domain.GameEntity
         event Action OnPlayerDies;
         event Action OnGameStart;
         void StartGame();
+        void RestartGame();
+        void ResumeGame();
     }
 }
