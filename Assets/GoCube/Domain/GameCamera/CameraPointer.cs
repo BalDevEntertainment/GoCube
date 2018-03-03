@@ -24,5 +24,9 @@ namespace GoCube.Domain.GameCamera {
             }
         }
 
+        public void Reset() {
+            distanceTravelled = 0;
+        }
+
     }
 }

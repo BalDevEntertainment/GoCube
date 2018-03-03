@@ -14,7 +14,7 @@ namespace Assets.GoCube.Domain.Spawner {
         }
 
         private void OnDistanceChanged(int distance) {
-            if (distance % distanceBetweenSpawn == 0) {
+            if (distance > 0 && distance % distanceBetweenSpawn == 0) {
                 Trigger();
             }
         }

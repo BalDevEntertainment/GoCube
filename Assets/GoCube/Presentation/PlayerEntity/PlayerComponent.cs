@@ -49,10 +49,15 @@ namespace GoCube.Presentation.PlayerEntity
 
         public void Revive() {
             _player.Revive();
+            _playerAnimationComponent.Jump();
         }
 
         public void EnableCollision() {
             _player.EnableCollision();
+        }
+
+        public void SetOnRevive(Action onRevive) {
+            _player.OnRevive += onRevive;
         }
     }
 }

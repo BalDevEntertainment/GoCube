@@ -10,5 +10,6 @@ namespace GoCube.Domain.PlayerEntity
         void BindAnimator(IPlayerAnimationComponent getComponent);
         void Enable();
         void Disable();
+        void RestoreToLastPosition();
     }
 }

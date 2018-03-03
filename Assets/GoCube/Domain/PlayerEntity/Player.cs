@@ -6,6 +6,7 @@ namespace GoCube.Domain.PlayerEntity
     public class Player
     {
         public event Action OnDeath = delegate { };
+        public event Action OnRevive = delegate { };
         private readonly IMovement _movement;
         private readonly ICollision _collisionComponent;
         private readonly IPlayerAnimationComponent _playerAnimationComponent;
@@ -41,6 +42,8 @@ namespace GoCube.Domain.PlayerEntity
         public void Revive() {
             _input.Enable();
             _collisionComponent.Enable();
+            _movement.RestoreToLastPosition();
+            OnRevive();
         }
 
         public void EnableCollision() {

@@ -22,6 +22,7 @@ namespace GoCube.Presentation.ScoreUi
             _gameEvents.OnGameStart += _scoreUi.Show;
             _scoreService.MaxScoreReached += _scoreUi.OnMaxScoreChanged;
             _scoreService.ScoreChanged += _scoreUi.OnScoreChanged;
+            _scoreUi.OnMaxScoreChanged(_scoreService.FindMaxScore());
             _scoreUi.Hide();
         }
 
