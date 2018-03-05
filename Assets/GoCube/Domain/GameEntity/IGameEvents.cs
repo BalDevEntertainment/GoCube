@@ -4,7 +4,7 @@ namespace GoCube.Domain.GameEntity
 {
     public interface IGameEvents
     {
-        event Action OnPlayerDies;
+        event Action<bool> OnPlayerDies;
         event Action OnGameStart;
         void StartGame();
         void RestartGame();

@@ -15,7 +15,6 @@ namespace GoCube.Infraestructure.PlayerEntity
         private Rigidbody2D _rigidBody;
         private float _movingTime;
         private float _speedModifier;
-        private Vector2 _previousPosition = Vector2.zero;
 
         private void Start()
         {
@@ -26,7 +25,6 @@ namespace GoCube.Infraestructure.PlayerEntity
         public void Jump()
         {
             NextPositionMarker.Stop();
-            _previousPosition = _destination;
             _destination = new Vector2(NextPositionMarker.transform.position.x,
                 transform.position.y);
             OnJump();
@@ -48,11 +46,6 @@ namespace GoCube.Infraestructure.PlayerEntity
         public void Disable()
         {
             enabled = false;
-        }
-
-        public void RestoreToLastPosition() {
-            _destination = _previousPosition;
-            _rigidBody.MovePosition(Vector2.Lerp(_rigidBody.position, _destination, _speedModifier));
         }
 
         private void Update()

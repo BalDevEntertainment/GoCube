@@ -14,7 +14,9 @@ namespace Assets.GoCube.Domain.Spawner {
         }
 
         private void OnDistanceChanged(int distance) {
-            if (distance > 0 && distance % distanceBetweenSpawn == 0) {
+            System.Random gen = new System.Random();
+            int prob = gen.Next(100);
+            if ((distance > 0 && distance % distanceBetweenSpawn == 0) && prob < 75) {
                 Trigger();
             }
         }

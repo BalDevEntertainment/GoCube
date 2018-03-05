@@ -5,7 +5,10 @@ namespace Assets.GoCube.Domain.Spawner {
 
         public event Action NewSpawn = delegate {};
 
+        private readonly ISpawnTrigger trigger;
+
         public EnemySpawner(ISpawnTrigger trigger) {
+            this.trigger = trigger;
             trigger.Trigger += Spawn;
         }
 
@@ -13,6 +16,10 @@ namespace Assets.GoCube.Domain.Spawner {
             if (NewSpawn != null) {
                 NewSpawn ();
             }
+        }
+
+        public void OnEnds() {
+            trigger.Trigger -= Spawn;
         }
     }
 

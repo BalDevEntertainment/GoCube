@@ -24,6 +24,7 @@ namespace GoCube.Presentation.GameOver
 
         private void OnDestroy()
         {
+            _adsComponent.OnAdsVideoResult -= OnAdsVideoResult;
             _gameOverMenu.Destroy();
         }
 

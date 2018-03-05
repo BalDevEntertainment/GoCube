@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Assets.GoCube.Domain.Spawner;
 using GoCube.Domain.GameCamera;
 using GoCube.Domain.GameEntity;
-using GoCube.Presentation;
 using GoCube.Presentation.PlayerEntity;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,7 +10,7 @@ using UnityEngine.Advertisements;
 
 namespace GoCube.Infraestructure.GameEntity {
     public class GameManagerComponent : MonoBehaviour, IGameEvents {
-        public event Action OnPlayerDies = delegate { };
+        public event Action<bool> OnPlayerDies = delegate { };
         public event Action OnGameStart = delegate { };
 
         private string _androidGameId = "1694396";
@@ -56,15 +55,11 @@ namespace GoCube.Infraestructure.GameEntity {
         }
 
         private void Start() {
-            _player.SetOnDeath(() => { OnPlayerDies.Invoke(); });
+            _player.SetOnDeath(() => { OnPlayerDies.Invoke(_player.WasRevive()); });
             _player.SetOnRevive(() => {
                 enemies.ForEach(Destroy);
                 enemies.Clear();
             });
-        }
-
-        public void Resume() {
-            _player.Revive();
         }
     }
 }
