@@ -10,16 +10,19 @@ namespace GoCube.Presentation.GameOver
     {
         [SerializeField] private float _timeToRevive = 5f;
         [SerializeField] private Image _reviveIcon;
+        [SerializeField] private Button _reviveButton;
         [SerializeField] private AdsComponent _adsComponent;
         private float _accumulatedTime;
         private IGameOverUi _gameOverUi;
         private GameOverMenu _gameOverMenu;
+        private bool _revive;
 
         private void Start()
         {
             _gameOverMenu = new GameOverMenu(this,
                 GameObject.FindWithTag("GameManager").GetComponent<GameManagerComponent>());
             _adsComponent.OnAdsVideoResult += OnAdsVideoResult;
+            _reviveButton.onClick.AddListener(() => { _revive = true;});
         }
 
         private void OnDestroy()
@@ -43,7 +46,7 @@ namespace GoCube.Presentation.GameOver
             _accumulatedTime += Time.deltaTime;
             _reviveIcon.fillAmount = 1 - _accumulatedTime / _timeToRevive;
 
-            if (Math.Abs(_accumulatedTime - _timeToRevive) < 0.01f)
+            if (Math.Abs(_accumulatedTime - _timeToRevive) < 0.01f && !_revive)
             {
                 _gameOverMenu.ReviveTimeIsOver();
             }

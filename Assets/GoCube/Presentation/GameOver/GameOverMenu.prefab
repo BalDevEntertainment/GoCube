@@ -285,8 +285,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeToRevive: 3
-  _gameManagerComponent: {fileID: 0}
   _reviveIcon: {fileID: 114814295123729686}
+  _reviveButton: {fileID: 114335193180043684}
   _adsComponent: {fileID: 114721102825361574}
 --- !u!114 &114814295123729686
 MonoBehaviour:
