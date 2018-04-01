@@ -6,27 +6,25 @@ namespace GoCube.Domain.GameCamera {
     public class CameraPointer : MonoBehaviour{
 
         public Action<int> DistanceChanged = delegate{ };
-        float distanceTravelled = 0;
-        Vector3 lastPosition;
+        float _distanceTravelled;
+        Vector3 _lastPosition;
 
         void Awake() {
-            lastPosition = transform.position;
+            _lastPosition = transform.position;
         }
 
 
         void Update() {
-            var travelled = Vector3.Distance(transform.position, lastPosition);
-            if ((int)lastPosition.x != (int)(transform.position.x)) {
-                distanceTravelled += travelled;
-                lastPosition = transform.position;
-                DistanceChanged((int)distanceTravelled);
-                Debug.Log((int) distanceTravelled);
+            var travelled = Vector3.Distance(transform.position, _lastPosition);
+            if ((int)_lastPosition.x != (int)transform.position.x) {
+                _distanceTravelled += travelled;
+                _lastPosition = transform.position;
+                DistanceChanged((int)_distanceTravelled);
             }
         }
 
         public void Reset() {
-            distanceTravelled = 0;
+            _distanceTravelled = 0;
         }
-
     }
 }
