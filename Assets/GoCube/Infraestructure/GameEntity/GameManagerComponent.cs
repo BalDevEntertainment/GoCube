@@ -26,7 +26,7 @@ namespace GoCube.Infraestructure.GameEntity {
         public GameObject EnemyPrefab;
 
         public void StartGame() {
-            var enemySpawner = new EnemySpawner(new PointerDistanceTrigger(_anchor, 5));
+            var enemySpawner = new EnemySpawner(new PointerDistanceTrigger(_anchor, 7));
             enemySpawner.NewSpawn += OnNewSpawn;
             OnGameStart();
         }
@@ -34,7 +34,7 @@ namespace GoCube.Infraestructure.GameEntity {
         private void OnNewSpawn() {
             var anchorTransform = _anchor.transform;
             var random = new System.Random();
-            var enemy = Instantiate(EnemyPrefab, new Vector3(anchorTransform.position.x + random.Next(1, 5),
+            var enemy = Instantiate(EnemyPrefab, new Vector3(anchorTransform.position.x + random.Next(6, 12),
                     EnemyPrefab.transform.position.y,
                     EnemyPrefab.transform.position.z),
                 Quaternion.identity);

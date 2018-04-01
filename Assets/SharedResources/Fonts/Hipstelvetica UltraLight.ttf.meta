@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: c92534b032e7cd247ab97da0ee6a761e
+timeCreated: 1522619625
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Hipstelvetica
+  fontNames:
+  - Hipstelvetica
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 7b61d5de67930434f90d57f788e3a184, type: 3}
+  - {fileID: 12800000, guid: 0315fadf622dd6c4583373d10c14db35, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
