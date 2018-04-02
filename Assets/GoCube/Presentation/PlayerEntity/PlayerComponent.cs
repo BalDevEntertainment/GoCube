@@ -18,15 +18,12 @@ namespace GoCube.Presentation.PlayerEntity
             _movementComponent = GetComponent<IMovement>();
             _playerAnimationComponent = GetComponent<IPlayerAnimationComponent>();
             _movementComponent.BindAnimator(_playerAnimationComponent);
-        }
-
-        private void Start() {
+            _lineRenderer = GetComponent<LineRenderer>();
             _player = new Player(GetComponent<IInput>(),
                 _movementComponent,
                 GetComponent<ICollision>(),
                 _playerAnimationComponent,
                 GameObject.FindWithTag("GameManager").GetComponent<GameManagerComponent>());
-            _lineRenderer = GetComponent<LineRenderer>();
         }
 
         private void Update()
@@ -57,8 +54,8 @@ namespace GoCube.Presentation.PlayerEntity
             _player.OnRevive += onRevive;
         }
 
-        public bool WasRevive() {
-            return _player.WasRevive;
+        public bool HasRevived() {
+            return _player.HasRevived;
         }
     }
 }

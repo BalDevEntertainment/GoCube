@@ -25,9 +25,9 @@ namespace GoCube.Presentation.GameOver
             _gameEvents.OnPlayerDies -= ShowGameOver;
         }
 
-        private void ShowGameOver(bool wasRevive)
+        private void ShowGameOver(bool hasRevived)
         {
-            if(!wasRevive)
+            if(!hasRevived)
                 _gameOverUi.Show();
             else
                 _gameEvents.RestartGame();

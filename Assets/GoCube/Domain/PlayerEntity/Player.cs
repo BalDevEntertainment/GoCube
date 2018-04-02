@@ -24,11 +24,11 @@ namespace GoCube.Domain.PlayerEntity
             _collisionComponent = collisionComponent;
             _playerAnimationComponent = playerAnimationComponent;
             _gameEvents = gameEvents;
-            WasRevive = false;
+            HasRevived = false;
             Init();
         }
 
-        public bool WasRevive { get; private set; }
+        public bool HasRevived { get; private set; }
 
         private void Init()
         {
@@ -43,7 +43,7 @@ namespace GoCube.Domain.PlayerEntity
         }
 
         public void Revive() {
-            WasRevive = true;
+            HasRevived = true;
             _input.Enable();
             _collisionComponent.Enable();
             _playerAnimationComponent.Jump();

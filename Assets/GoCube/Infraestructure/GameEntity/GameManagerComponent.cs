@@ -21,8 +21,6 @@ namespace GoCube.Infraestructure.GameEntity {
 
         private List<GameObject> enemies = new List<GameObject>();
 
-        public Canvas canvas;
-
         public GameObject EnemyPrefab;
 
         public void StartGame() {
@@ -55,7 +53,7 @@ namespace GoCube.Infraestructure.GameEntity {
         }
 
         private void Start() {
-            _player.SetOnDeath(() => { OnPlayerDies.Invoke(_player.WasRevive()); });
+            _player.SetOnDeath(() => { OnPlayerDies.Invoke(_player.HasRevived()); });
             _player.SetOnRevive(() => {
                 enemies.ForEach(Destroy);
                 enemies.Clear();
