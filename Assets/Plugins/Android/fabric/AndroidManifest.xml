@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="io.fabric.sdk.android.unity">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="io.fabric.sdk.android.unity" xmlns:tools="http://schemas.android.com/tools">
   <application>
     <meta-data android:name="io.fabric.ApiKey" android:value="f2ad2c10b08c9a29649493d90a9897285df8131c" />
     <meta-data android:name="io.fabric.unity.crashlytics.version" android:value="1.2.5" />
@@ -8,4 +8,5 @@
     <meta-data android:name="io.fabric.kits" android:value="crashlytics" />
     <meta-data android:name="io.fabric.InitializationType" android:value="Automatic" />
   </application>
+  <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
 </manifest>

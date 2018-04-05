@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="io.fabric.unity.crashlytics.android.crashlyticswrapper">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="io.fabric.unity.crashlytics.android.crashlyticswrapper" xmlns:tools="http://schemas.android.com/tools">
   <application>
   </application>
+  <uses-permission android:name="android.permission.READ_PHONE_STATE" tools:node="remove" />
 </manifest>
