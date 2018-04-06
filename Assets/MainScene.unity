@@ -226,6 +226,72 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114694522641352086, guid: dcbe427e804831b4c8f7ab5c9615efca,
+        type: 2}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114694522641352086, guid: dcbe427e804831b4c8f7ab5c9615efca,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c8febf360a3d4c04e9e5d168be6a20da,
+        type: 3}
+    - target: {fileID: 114694522641352086, guid: dcbe427e804831b4c8f7ab5c9615efca,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114694522641352086, guid: dcbe427e804831b4c8f7ab5c9615efca,
+        type: 2}
+      propertyPath: m_FillCenter
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224952816874032340, guid: dcbe427e804831b4c8f7ab5c9615efca,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -23.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 224952816874032340, guid: dcbe427e804831b4c8f7ab5c9615efca,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 193.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 224952816874032340, guid: dcbe427e804831b4c8f7ab5c9615efca,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 109.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 224049902871186256, guid: dcbe427e804831b4c8f7ab5c9615efca,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -54.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 224148973290317126, guid: dcbe427e804831b4c8f7ab5c9615efca,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -22.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 224764028648843624, guid: dcbe427e804831b4c8f7ab5c9615efca,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -78.21898
+      objectReference: {fileID: 0}
+    - target: {fileID: 224049902871186256, guid: dcbe427e804831b4c8f7ab5c9615efca,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 93.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 224148973290317126, guid: dcbe427e804831b4c8f7ab5c9615efca,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -25.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 224764028648843624, guid: dcbe427e804831b4c8f7ab5c9615efca,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 104.659996
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: dcbe427e804831b4c8f7ab5c9615efca, type: 2}
   m_IsPrefabParent: 0
