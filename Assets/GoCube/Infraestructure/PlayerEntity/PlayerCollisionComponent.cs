@@ -13,7 +13,7 @@ namespace GoCube.Infraestructure.PlayerEntity
         {
             if (isEnabled) {
                 OnCollision(other.tag);
-                Destroy(other.gameObject);
+                //Destroy(other.gameObject);
             }
         }
 
