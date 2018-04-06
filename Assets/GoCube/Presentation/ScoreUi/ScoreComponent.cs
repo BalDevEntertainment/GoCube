@@ -30,12 +30,12 @@ namespace GoCube.Presentation.ScoreUi
 
         public void OnMaxScoreChanged(int score)
         {
-            _maxScoreText.text = "Max Score: " + score.ToString("0000");
+            _maxScoreText.text = score.ToString("0000");
         }
 
         public void OnScoreChanged(int score)
         {
-            _scoreText.text = "Score: " + score.ToString("0000");
+            _scoreText.text = score.ToString("0000");
         }
 
         private void OnDestroy()
