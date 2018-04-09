@@ -27,7 +27,7 @@ MonoBehaviour:
   installedKits:
   - Name: Crashlytics
     InstallationStatus: 1
-    Installed: 0
+    Installed: 1
     Enabled: 1
     Meta:
     - Key: ConfiguredTimestamp
