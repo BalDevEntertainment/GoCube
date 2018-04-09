@@ -6,7 +6,8 @@ namespace GoCube.Presentation.JumpingEnemy
     {
         private void OnTriggerEnter2D(Collider2D other)
         {
-            GetComponentInChildren<BoxCollider2D>().enabled = false;
+            GetComponent<AudioSource>().Play();
+            GetComponent<BoxCollider2D>().enabled = false;
         }
     }
 }
