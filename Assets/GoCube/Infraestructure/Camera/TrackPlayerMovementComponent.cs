@@ -1,5 +1,4 @@
-﻿using GoCube.Presentation.Camera;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GoCube.Infraestructure.Camera
 {
