@@ -13,7 +13,7 @@ namespace GoCube.Infraestructure.GameEntity {
         public event Action<bool> OnPlayerDies = delegate { };
         public event Action OnGameStart = delegate { };
 
-        private string _androidGameId = "1694396";
+        private string _androidGameId = "1755417";
 
         [SerializeField] private PlayerComponent _player;
 
