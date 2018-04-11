@@ -9,7 +9,6 @@ namespace GoCube.Presentation.PlayerEntity
     public class PlayerComponent : MonoBehaviour
     {
         private Player _player;
-        private LineRenderer _lineRenderer;
         private IMovement _movementComponent;
         private IPlayerAnimationComponent _playerAnimationComponent;
 
@@ -18,18 +17,11 @@ namespace GoCube.Presentation.PlayerEntity
             _movementComponent = GetComponent<IMovement>();
             _playerAnimationComponent = GetComponent<IPlayerAnimationComponent>();
             _movementComponent.BindAnimator(_playerAnimationComponent);
-            _lineRenderer = GetComponent<LineRenderer>();
             _player = new Player(GetComponent<IInput>(),
                 _movementComponent,
                 GetComponent<ICollision>(),
                 _playerAnimationComponent,
                 GameObject.FindWithTag("GameManager").GetComponent<GameManagerComponent>());
-        }
-
-        private void Update()
-        {
-            var destPosi = _lineRenderer.GetPosition(1);
-            _lineRenderer.SetPosition(1, new Vector3(transform.Find("TargetPositionMarker").localPosition.x, destPosi.y, destPosi.z));
         }
 
         public void SetOnDeath(Action onDeath)
