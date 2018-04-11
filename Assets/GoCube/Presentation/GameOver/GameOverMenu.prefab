@@ -454,7 +454,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AdsButton: {fileID: 114258128679055978}
-  placementId: rewardedVideo
+  placementId: video
 --- !u!114 &114750325450350250
 MonoBehaviour:
   m_ObjectHideFlags: 1
