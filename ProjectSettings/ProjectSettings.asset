@@ -598,6 +598,7 @@ PlayerSettings:
   webGLCompressionFormat: 1
   scriptingDefineSymbols:
     1: Character
+    4: NO_GPGS
     7: 
   platformArchitecture: {}
   scriptingBackend: {}
