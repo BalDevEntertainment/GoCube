@@ -11,11 +11,16 @@ namespace GoCube.Domain.Provider {
         {
             return ProviderCache.GetOrInstanciate<ScoreService>(() => new ScoreService(
                 InfrastructureProvider.ProvideScore(),
-                InfrastructureProvider.ProvideMaxScore()));
+                InfrastructureProvider.ProvideMaxScore(),
+                ProvideLeaderBoardScore()));
         }
 
         public static AdsService ProvideAdsService() {
             return ProviderCache.GetOrInstanciate<AdsService>(() => new AdsService(new UnityAdsProvider()));
+        }
+
+        public static LeaderBoardScoreService ProvideLeaderBoardScore() {
+            return ProviderCache.GetOrInstanciate<LeaderBoardScoreService>(() => new LeaderBoardScoreService("CgkIvJL6kN8LEAIQAA"));
         }
     }
 }

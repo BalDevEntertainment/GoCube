@@ -6,13 +6,15 @@ namespace GoCube.Domain.Score {
     public class ScoreService {
         
         private readonly ScoreRepository scoreRepository;
+        private readonly LeaderBoardScoreService leaderboardScoreService;
         private readonly MaxScoreRepository maxScoreRepository;
 
         public event Action<int> ScoreChanged = delegate {  };
         public event Action<int> MaxScoreReached = delegate {  };
 
-        public ScoreService(ScoreRepository scoreRepository, MaxScoreRepository maxScoreRepository) {
+        public ScoreService(ScoreRepository scoreRepository, MaxScoreRepository maxScoreRepository, LeaderBoardScoreService leaderboardScoreService) {
             this.scoreRepository = scoreRepository;
+            this.leaderboardScoreService = leaderboardScoreService;
             this.maxScoreRepository = maxScoreRepository;
         }
         
@@ -23,6 +25,7 @@ namespace GoCube.Domain.Score {
             if (actualScore > maxScore) {
                 maxScoreRepository.Update(actualScore);
                 MaxScoreReached(actualScore);
+                leaderboardScoreService.UpdateLeaderBoard(actualScore);
             }
         }
 

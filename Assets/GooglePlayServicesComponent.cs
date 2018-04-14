@@ -1,68 +1,44 @@
 ﻿using UnityEngine;
 using System.Collections;
+using GoCube.Domain.Provider;
+using GoCube.Domain.Score;
 using GooglePlayGames;
 using UnityEngine.SocialPlatforms;
 public class GooglePlayServicesComponent : MonoBehaviour
 {
-	#region PUBLIC_VAR
 	public string leaderboard;
-	#endregion
-	#region DEFAULT_UNITY_CALLBACKS
-	void Start ()
-	{
-		// recommended for debugging:
+	private ScoreService scoreService;
+
+	void Start () {
 		PlayGamesPlatform.DebugLogEnabled = true;
-
-		// Activate the Google Play Games platform
 		PlayGamesPlatform.Activate ();
+		scoreService = ServiceProvider.ProvideScore();
 	}
-	#endregion
-	#region BUTTON_CALLBACKS
-	/// <summary>
-	/// Login In Into Your Google+ Account
-	/// </summary>
-	public void LogIn ()
-	{
-		Social.localUser.Authenticate ((bool success) =>
-		{
-			if (success) {
-				Debug.Log ("Login Sucess");
-			} else {
-				Debug.Log ("Login failed");
-			}
-		});
-	}
-	/// <summary>
-	/// Shows All Available Leaderborad
-	/// </summary>
-	public void OnShowLeaderBoard ()
-	{
-//        Social.ShowLeaderboardUI (); // Show all leaderboard
-		((PlayGamesPlatform)Social.Active).ShowLeaderboardUI (leaderboard); // Show current (Active) leaderboard
-	}
-	/// <summary>
-	/// Adds Score To leader board
-	/// </summary>
-	public void OnAddScoreToLeaderBorad ()
-	{
-		if (Social.localUser.authenticated) {
-			Social.ReportScore (1, leaderboard, (bool success) =>
-			{
-				if (success) {
-					Debug.Log ("Update Score Success");
 
+	public void OnShowLeaderBoard () {
+		if (!Social.localUser.authenticated) {
+			Social.localUser.Authenticate ((bool authenticated) => {
+				if (authenticated) {
+					Social.ReportScore (scoreService.FindMaxScore(), leaderboard, (bool success) => {
+						if (success) {
+							ShowLeaderBoard();
+						} else {
+							Debug.Log ("Update Score Fail");
+						}
+					});
 				} else {
-					Debug.Log ("Update Score Fail");
+					Debug.Log ("Login failed");
 				}
 			});
 		}
+		else {
+			ShowLeaderBoard();
+		}
 	}
-	/// <summary>
-	/// On Logout of your Google+ Account
-	/// </summary>
-	public void OnLogOut ()
-	{
-		((PlayGamesPlatform)Social.Active).SignOut ();
+
+
+	void ShowLeaderBoard() {
+		((PlayGamesPlatform)Social.Active).ShowLeaderboardUI (leaderboard);
 	}
-	#endregion
+
 }
