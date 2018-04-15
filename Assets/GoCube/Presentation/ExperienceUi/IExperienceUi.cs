@@ -4,5 +4,7 @@
     {
         void FillExperienceBar(int amount, float inSeconds);
         void NextLevelReached();
+        void SetExperienceBarValue(int value);
+        void SetLevel(int currentLevel);
     }
 }

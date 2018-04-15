@@ -1,5 +1,6 @@
 ﻿using GoCube.Domain.Provider;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace GoCube.Infraestructure.Cheats
 {
@@ -9,6 +10,12 @@ namespace GoCube.Infraestructure.Cheats
 			if (Input.GetKeyDown(KeyCode.Q))
 			{
 				ServiceProvider.ProvideScore().IncrementScore(1);
+			}
+
+			if (Input.GetKeyDown(KeyCode.P))
+			{
+				PlayerPrefs.DeleteAll();
+				SceneManager.LoadScene("MainScene");
 			}
 		}
 	}

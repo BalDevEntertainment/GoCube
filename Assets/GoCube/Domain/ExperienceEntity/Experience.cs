@@ -6,17 +6,15 @@ namespace GoCube.Domain.ExperienceEntity
 {
     public class Experience
     {
-        private readonly float _nextLevel;
         private IExperienceUi _experienceUi;
         private readonly ScoreService _score;
         private readonly ExperienceService _experienceService;
         private IGameEvents _gameEvents;
         private int _gainedExperience;
 
-        public Experience(float nextLevel, IExperienceUi experienceUi, ScoreService score,
+        public Experience(IExperienceUi experienceUi, ScoreService score,
             ExperienceService experienceService, IGameEvents gameEvents)
         {
-            _nextLevel = nextLevel;
             _experienceUi = experienceUi;
             _score = score;
             _experienceService = experienceService;
@@ -40,8 +38,10 @@ namespace GoCube.Domain.ExperienceEntity
 
         private void SaveExperienceGained(float inSeconds)
         {
+            _experienceUi.SetLevel(_experienceService.CurrentLevel());
+            _experienceUi.SetExperienceBarValue(_experienceService.CurrentExperience());
             _experienceService.IncrementExperience(_gainedExperience);
-            _experienceUi.FillExperienceBar(_experienceService.CurrentExperience() + _gainedExperience, inSeconds);
+            _experienceUi.FillExperienceBar(_gainedExperience, inSeconds);
             _gainedExperience = 0;
         }
 
@@ -53,6 +53,11 @@ namespace GoCube.Domain.ExperienceEntity
         private void NextLevelReached()
         {
             _experienceUi.NextLevelReached();
+        }
+
+        public int NextLevelRequirement()
+        {
+            return _experienceService.NextLevelRequirement();
         }
     }
 }

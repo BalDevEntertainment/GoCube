@@ -20,11 +20,6 @@ namespace GoCube.Infraestructure.ExperienceEntity
             return _currentExperience;
         }
 
-        public void Clear() {
-            PlayerPrefs.DeleteKey(ExperienceKey);
-            _currentExperience = 0;
-        }
-
         public int CurrentExperience()
         {
             return _currentExperience;

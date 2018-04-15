@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 222958043421015222}
   - component: {fileID: 114564450847401960}
   - component: {fileID: 114515871316946586}
+  - component: {fileID: 114018925737627630}
   m_Layer: 5
   m_Name: ExperienceText
   m_TagString: Untagged
@@ -127,6 +128,17 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &114018925737627630
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1234898770561010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7aae324c11f97b40b379d910b515aeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114136285908335538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83c7e6608a9551a4185d445f41833d9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxExp: 100
+  _level: {fileID: 114018925737627630}
 --- !u!114 &114433149711291434
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -302,7 +314,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 114618619501544034}
   m_FillRect: {fileID: 224247313727483442}
   m_HandleRect: {fileID: 0}
   m_Direction: 0

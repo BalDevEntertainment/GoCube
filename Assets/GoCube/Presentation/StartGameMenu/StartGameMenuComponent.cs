@@ -15,11 +15,6 @@ namespace GoCube.Presentation.StartGameMenu
             _gameManagerComponent.OnGameStart += Animate;
         }
 
-        private void OnDestroy()
-        {
-            _gameManagerComponent.OnGameStart -= Animate;
-        }
-
         private void Animate()
         {
             GetComponent<Animator>().SetTrigger("StartGame");

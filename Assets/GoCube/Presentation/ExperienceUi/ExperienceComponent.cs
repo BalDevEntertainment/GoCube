@@ -1,4 +1,5 @@
-﻿using GoCube.Domain.ExperienceEntity;
+﻿using System;
+using GoCube.Domain.ExperienceEntity;
 using GoCube.Domain.Provider;
 using GoCube.Infraestructure.GameEntity;
 using UnityEngine;
@@ -8,7 +9,8 @@ namespace GoCube.Presentation.ExperienceUi
 {
 	public class ExperienceComponent : MonoBehaviour, IExperienceUi
 	{
-		[SerializeField] private float _maxExp;
+		[SerializeField] private LevelComponent _level;
+		private const float Tolerance = 0.01f;
 		private float _fillExperienceBarInSeconds;
 		private Experience _experience;
 		private bool _fillBar;
@@ -16,13 +18,16 @@ namespace GoCube.Presentation.ExperienceUi
 		private Slider _experienceBar;
 		private float _currentExperienceBarValue;
 		private float _acumulatedTime;
+		private int _experienceNeededForNextLevel;
+		private float _previousValue;
 
 		private void Awake()
 		{
-			_experience = new Experience(_maxExp, this, ServiceProvider.ProvideScore(),
+			_experience = new Experience(this, ServiceProvider.ProvideScore(),
 				ServiceProvider.ProvideExperience(),
 				GameObject.FindWithTag("GameManager").GetComponent<GameManagerComponent>());
 			_experienceBar = GetComponentInChildren<Slider>();
+			_experienceNeededForNextLevel = _experience.NextLevelRequirement();
 		}
 
 		private void Update()
@@ -51,10 +56,31 @@ namespace GoCube.Presentation.ExperienceUi
 			Debug.Log("NextLevelReached!!!!");
 		}
 
+		public void SetExperienceBarValue(int value)
+		{
+			_experienceBar.value = (float) value / _experienceNeededForNextLevel;
+			_previousValue = _experienceBar.value;
+		}
+
+		public void SetLevel(int currentLevel)
+		{
+			_level.Setlevel(currentLevel);
+		}
+
 		private void RiseExperienceBarValue()
 		{
-			var experienceBarValue = Mathf.Lerp(0, _fillBarUntil, _acumulatedTime / _fillExperienceBarInSeconds);
-			_experienceBar.value = experienceBarValue/ _maxExp ;
+			_experienceBar.value = Mathf.Lerp(_previousValue, _previousValue + (float) _fillBarUntil / _experienceNeededForNextLevel, _acumulatedTime / _fillExperienceBarInSeconds);
+			if (HasBarReachedMaxValue())
+			{
+				SetExperienceBarValue(0);
+				_level.IncreaseLevel();
+				_experienceNeededForNextLevel = _experience.NextLevelRequirement();
+			}
+		}
+
+		private bool HasBarReachedMaxValue()
+		{
+			return Math.Abs(_experienceBar.value - 1) < Tolerance;
 		}
 
 		private void OnDestroy()

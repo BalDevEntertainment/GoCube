@@ -32,14 +32,20 @@ namespace GoCube.Domain.ExperienceEntity
                    _playerLevelProgression.GetLevelForExp(actualExperience);
         }
 
-        public void ClearScore()
-        {
-            _experienceRepository.Clear();
-        }
-
         public int CurrentExperience()
         {
             return _experienceRepository.CurrentExperience();
+        }
+
+        public int NextLevelRequirement()
+        {
+            return _playerLevelProgression.GetExperienceRequirementForLevel(
+                _playerLevelProgression.GetLevelForExp(_experienceRepository.CurrentExperience()));
+        }
+
+        public int CurrentLevel()
+        {
+            return _playerLevelProgression.GetLevelForExp(_experienceRepository.CurrentExperience());
         }
     }
 }
