@@ -1,4 +1,5 @@
 ﻿using GoCube.Domain.Provider;
+using GoCube.Domain.ScoreEntity;
 using GoCube.Infraestructure.GameEntity;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,8 +10,8 @@ namespace GoCube.Presentation.ScoreUi
     {
         [SerializeField] private Text _maxScoreText;
         [SerializeField] private Text _scoreText;
-        [SerializeField] private float _depleteScoreInSeconds;
 
+        private float _depleteScoreInSeconds;
         private Score _score;
         private bool _shouldDecrease;
         private float _acumulatedTime;
@@ -65,8 +66,9 @@ namespace GoCube.Presentation.ScoreUi
             _scoreText.text = _currentScoreValue.ToString("0000");
         }
 
-        public void DecreaseScoreToZero()
+        public void DecreaseScoreToZero(float inSeconds)
         {
+            _depleteScoreInSeconds = inSeconds;
             _animator.SetTrigger("Bounce");
         }
 

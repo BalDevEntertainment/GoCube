@@ -12,15 +12,16 @@ namespace GoCube.Infraestructure.GameEntity {
     public class GameManagerComponent : MonoBehaviour, IGameEvents {
         public event Action<bool> OnPlayerDies = delegate { };
         public event Action OnGameStart = delegate { };
-        public event Action OnAddScoreToExperience = delegate { };
+        public event Action<float> OnAddScoreToExperience = delegate { };
 
         private string _androidGameId = "1755417";
 
         [SerializeField] private PlayerComponent _player;
 
         [SerializeField] private CameraPointer _anchor;
+        [SerializeField] private float _experienceLoadSeconds;
 
-        private List<GameObject> enemies = new List<GameObject>();
+        private readonly List<GameObject> _enemies = new List<GameObject>();
 
         public GameObject EnemyPrefab;
 
@@ -37,7 +38,7 @@ namespace GoCube.Infraestructure.GameEntity {
                     EnemyPrefab.transform.position.y,
                     EnemyPrefab.transform.position.z),
                 Quaternion.identity);
-            enemies.Add(enemy);
+            _enemies.Add(enemy);
         }
 
         public void RestartGame() {
@@ -56,13 +57,13 @@ namespace GoCube.Infraestructure.GameEntity {
         private void Start() {
             _player.SetOnDeath(() =>
             {
-                OnAddScoreToExperience.Invoke();
+                OnAddScoreToExperience.Invoke(_experienceLoadSeconds);
                 OnPlayerDies.Invoke(_player.HasRevived());
             });
 
             _player.SetOnRevive(() => {
-                enemies.ForEach(Destroy);
-                enemies.Clear();
+                _enemies.ForEach(Destroy);
+                _enemies.Clear();
             });
         }
     }

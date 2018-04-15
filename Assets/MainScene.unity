@@ -491,18 +491,18 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 224247313727483442, guid: cf7074cc33d027d4eb83ec295e8aaaae,
         type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224247313727483442, guid: cf7074cc33d027d4eb83ec295e8aaaae,
-        type: 2}
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114619325602288260, guid: cf7074cc33d027d4eb83ec295e8aaaae,
         type: 2}
       propertyPath: m_Value
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224247313727483442, guid: cf7074cc33d027d4eb83ec295e8aaaae,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf7074cc33d027d4eb83ec295e8aaaae, type: 2}
@@ -1535,6 +1535,11 @@ Prefab:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 708750306}
+    - target: {fileID: 114381554972708882, guid: d6ed74495bf7fe146aa982be40ba89af,
+        type: 2}
+      propertyPath: _experienceLoadSeconds
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6ed74495bf7fe146aa982be40ba89af, type: 2}
   m_IsPrefabParent: 0

@@ -1,5 +1,5 @@
 ﻿using GoCube.Domain.Ads;
-using GoCube.Domain.Score;
+using GoCube.Domain.ScoreEntity;
 using GoCube.Infraestructure.Ads;
 using GoCube.Infraestructure.Provider;
 using GoCube.Util;

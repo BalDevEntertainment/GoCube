@@ -1,7 +1,7 @@
 ﻿using GoCube.Domain.GameEntity;
-using GoCube.Domain.Score;
+using GoCube.Presentation.ScoreUi;
 
-namespace GoCube.Presentation.ScoreUi
+namespace GoCube.Domain.ScoreEntity
 {
     public class Score
     {
