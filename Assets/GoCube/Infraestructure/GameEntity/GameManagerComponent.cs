@@ -12,6 +12,7 @@ namespace GoCube.Infraestructure.GameEntity {
     public class GameManagerComponent : MonoBehaviour, IGameEvents {
         public event Action<bool> OnPlayerDies = delegate { };
         public event Action OnGameStart = delegate { };
+        public event Action OnAddScoreToExperience = delegate { };
 
         private string _androidGameId = "1755417";
 
@@ -53,7 +54,12 @@ namespace GoCube.Infraestructure.GameEntity {
         }
 
         private void Start() {
-            _player.SetOnDeath(() => { OnPlayerDies.Invoke(_player.HasRevived()); });
+            _player.SetOnDeath(() =>
+            {
+                OnAddScoreToExperience.Invoke();
+                OnPlayerDies.Invoke(_player.HasRevived());
+            });
+
             _player.SetOnRevive(() => {
                 enemies.ForEach(Destroy);
                 enemies.Clear();

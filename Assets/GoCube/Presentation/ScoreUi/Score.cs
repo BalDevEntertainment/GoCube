@@ -20,6 +20,7 @@ namespace GoCube.Presentation.ScoreUi
         private void Init()
         {
             _gameEvents.OnGameStart += _scoreUi.Show;
+            _gameEvents.OnAddScoreToExperience += _scoreUi.DecreaseScoreToZero;
             _scoreService.MaxScoreReached += _scoreUi.OnMaxScoreChanged;
             _scoreService.ScoreChanged += _scoreUi.OnScoreChanged;
             _scoreUi.OnMaxScoreChanged(_scoreService.FindMaxScore());
@@ -29,6 +30,7 @@ namespace GoCube.Presentation.ScoreUi
         public void Destroy()
         {
             _gameEvents.OnGameStart -= _scoreUi.Show;
+            _gameEvents.OnAddScoreToExperience -= _scoreUi.DecreaseScoreToZero;
             _scoreService.MaxScoreReached -= _scoreUi.OnMaxScoreChanged;
             _scoreService.ScoreChanged -= _scoreUi.OnScoreChanged;
             _scoreService.ClearScore();

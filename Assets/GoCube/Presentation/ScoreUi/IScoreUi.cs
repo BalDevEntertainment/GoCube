@@ -6,5 +6,6 @@
         void Hide();
         void OnMaxScoreChanged(int score);
         void OnScoreChanged(int score);
+        void DecreaseScoreToZero();
     }
 }
