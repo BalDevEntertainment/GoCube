@@ -3,5 +3,6 @@
     public interface IExperienceUi
     {
         void FillExperienceBar(int amount, float inSeconds);
+        void NextLevelReached();
     }
 }

@@ -9,15 +9,17 @@ namespace GoCube.Domain.ExperienceEntity
         private readonly float _nextLevel;
         private IExperienceUi _experienceUi;
         private readonly ScoreService _score;
+        private readonly ExperienceService _experienceService;
         private IGameEvents _gameEvents;
-        private int _currentExperience;
+        private int _gainedExperience;
 
         public Experience(float nextLevel, IExperienceUi experienceUi, ScoreService score,
-            IGameEvents gameEvents)
+            ExperienceService experienceService, IGameEvents gameEvents)
         {
             _nextLevel = nextLevel;
             _experienceUi = experienceUi;
             _score = score;
+            _experienceService = experienceService;
             _gameEvents = gameEvents;
             Init();
         }
@@ -25,23 +27,32 @@ namespace GoCube.Domain.ExperienceEntity
         private void Init()
         {
             _score.ScoreChanged += OnScoreChanged;
-            _gameEvents.OnAddScoreToExperience += AddScoreToExperience;
+            _experienceService.OnNextLevelReached += NextLevelReached;
+            _gameEvents.OnAddScoreToExperience += SaveExperienceGained;
         }
 
         public void Destroy()
         {
             _score.ScoreChanged -= OnScoreChanged;
-            _gameEvents.OnAddScoreToExperience -= AddScoreToExperience;
+            _experienceService.OnNextLevelReached -= NextLevelReached;
+            _gameEvents.OnAddScoreToExperience -= SaveExperienceGained;
         }
 
-        private void AddScoreToExperience(float inSeconds)
+        private void SaveExperienceGained(float inSeconds)
         {
-            _experienceUi.FillExperienceBar(_currentExperience, inSeconds);
+            _experienceService.IncrementExperience(_gainedExperience);
+            _experienceUi.FillExperienceBar(_experienceService.CurrentExperience() + _gainedExperience, inSeconds);
+            _gainedExperience = 0;
         }
 
         private void OnScoreChanged(int currentScore)
         {
-            _currentExperience = currentScore;
+            _gainedExperience = currentScore;
+        }
+
+        private void NextLevelReached()
+        {
+            _experienceUi.NextLevelReached();
         }
     }
 }

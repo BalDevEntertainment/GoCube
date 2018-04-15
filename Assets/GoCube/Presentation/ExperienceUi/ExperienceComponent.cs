@@ -20,6 +20,7 @@ namespace GoCube.Presentation.ExperienceUi
 		private void Awake()
 		{
 			_experience = new Experience(_maxExp, this, ServiceProvider.ProvideScore(),
+				ServiceProvider.ProvideExperience(),
 				GameObject.FindWithTag("GameManager").GetComponent<GameManagerComponent>());
 			_experienceBar = GetComponentInChildren<Slider>();
 		}
@@ -43,6 +44,11 @@ namespace GoCube.Presentation.ExperienceUi
 			_fillBar = true;
 			_fillBarUntil = amount;
 			_fillExperienceBarInSeconds = inSeconds;
+		}
+
+		public void NextLevelReached()
+		{
+			Debug.Log("NextLevelReached!!!!");
 		}
 
 		private void RiseExperienceBarValue()
