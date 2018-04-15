@@ -12,6 +12,7 @@ namespace GoCube.Infraestructure.GameEntity {
     public class GameManagerComponent : MonoBehaviour, IGameEvents {
         public event Action<bool> OnPlayerDies = delegate { };
         public event Action OnGameStart = delegate { };
+        public event Action OnGameInitialized = delegate { };
         public event Action<float> OnAddScoreToExperience = delegate { };
 
         private string _androidGameId = "1755417";
@@ -65,6 +66,8 @@ namespace GoCube.Infraestructure.GameEntity {
                 _enemies.ForEach(Destroy);
                 _enemies.Clear();
             });
+
+            OnGameInitialized.Invoke();
         }
     }
 }

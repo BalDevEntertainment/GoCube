@@ -1,5 +1,4 @@
-﻿using System;
-using GoCube.Domain.ExperienceEntity;
+﻿using GoCube.Domain.ExperienceEntity;
 using GoCube.Domain.Provider;
 using GoCube.Infraestructure.GameEntity;
 using UnityEngine;
@@ -18,7 +17,7 @@ namespace GoCube.Presentation.ExperienceUi
 		private float _currentExperienceBarValue;
 		private float _acumulatedTime;
 
-		void Start()
+		private void Awake()
 		{
 			_experience = new Experience(_maxExp, this, ServiceProvider.ProvideScore(),
 				GameObject.FindWithTag("GameManager").GetComponent<GameManagerComponent>());

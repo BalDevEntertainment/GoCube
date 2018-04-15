@@ -18,7 +18,7 @@ namespace GoCube.Presentation.ScoreUi
         private Animator _animator;
         private int _currentScoreValue;
 
-        void Start()
+        void Awake()
         {
             _score = new Score(this, ServiceProvider.ProvideScore(),
                 GameObject.FindWithTag("GameManager").GetComponent<GameManagerComponent>());

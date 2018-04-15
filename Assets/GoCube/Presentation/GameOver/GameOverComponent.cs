@@ -17,12 +17,17 @@ namespace GoCube.Presentation.GameOver
         private GameOverMenu _gameOverMenu;
         private bool _revive;
 
-        private void Start()
+        private void Awake()
         {
             _gameOverMenu = new GameOverMenu(this,
                 GameObject.FindWithTag("GameManager").GetComponent<GameManagerComponent>());
             _adsComponent.OnAdsVideoResult += OnAdsVideoResult;
             _reviveButton.onClick.AddListener(() => { _revive = true;});
+        }
+
+        private void Start()
+        {
+            _gameOverMenu.GameInitialized();
         }
 
         private void OnDestroy()

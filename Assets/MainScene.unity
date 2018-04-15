@@ -502,8 +502,13 @@ Prefab:
     - target: {fileID: 224247313727483442, guid: cf7074cc33d027d4eb83ec295e8aaaae,
         type: 2}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.011
       objectReference: {fileID: 0}
+    - target: {fileID: 114619325602288260, guid: cf7074cc33d027d4eb83ec295e8aaaae,
+        type: 2}
+      propertyPath: m_TargetGraphic
+      value: 
+      objectReference: {fileID: 932012409}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf7074cc33d027d4eb83ec295e8aaaae, type: 2}
   m_IsPrefabParent: 0
@@ -756,6 +761,12 @@ MonoBehaviour:
   Target: {fileID: 79464928}
   SmoothTime: 0.3
   _offset: 4
+--- !u!114 &932012409 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114618619501544034, guid: cf7074cc33d027d4eb83ec295e8aaaae,
+    type: 2}
+  m_PrefabInternal: {fileID: 497600985}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1077300597
 GameObject:
   m_ObjectHideFlags: 0
