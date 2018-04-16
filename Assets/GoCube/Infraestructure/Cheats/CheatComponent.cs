@@ -9,7 +9,7 @@ namespace GoCube.Infraestructure.Cheats
 		void Update () {
 			if (Input.GetKeyDown(KeyCode.Q))
 			{
-				ServiceProvider.ProvideScore().IncrementScore(1);
+				ServiceProvider.ProvideScore().IncrementScore(10);
 			}
 
 			if (Input.GetKeyDown(KeyCode.P))
