@@ -1,6 +1,7 @@
 ﻿using GoCube.Domain.Ads;
 using GoCube.Domain.ExperienceEntity;
 using GoCube.Domain.GameEntity;
+using GoCube.Domain.Score;
 using GoCube.Domain.ScoreEntity;
 using GoCube.Infraestructure.Ads;
 using GoCube.Infraestructure.Provider;

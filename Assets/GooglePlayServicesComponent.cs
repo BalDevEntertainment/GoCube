@@ -2,24 +2,25 @@
 using System.Collections;
 using GoCube.Domain.Provider;
 using GoCube.Domain.Score;
+using GoCube.Domain.ScoreEntity;
 using GooglePlayGames;
 using UnityEngine.SocialPlatforms;
 public class GooglePlayServicesComponent : MonoBehaviour
 {
-	public string leaderboard;
-	private ScoreService scoreService;
+	public string Leaderboard;
+	private ScoreService _scoreService;
 
 	void Start () {
 		PlayGamesPlatform.DebugLogEnabled = true;
 		PlayGamesPlatform.Activate ();
-		scoreService = ServiceProvider.ProvideScore();
+		_scoreService = ServiceProvider.ProvideScore();
 	}
 
 	public void OnShowLeaderBoard () {
 		if (!Social.localUser.authenticated) {
-			Social.localUser.Authenticate ((bool authenticated) => {
+			Social.localUser.Authenticate (authenticated => {
 				if (authenticated) {
-					Social.ReportScore (scoreService.FindMaxScore(), leaderboard, (bool success) => {
+					Social.ReportScore (_scoreService.FindMaxScore(), Leaderboard, success => {
 						if (success) {
 							ShowLeaderBoard();
 						} else {
@@ -38,7 +39,7 @@ public class GooglePlayServicesComponent : MonoBehaviour
 
 
 	void ShowLeaderBoard() {
-		((PlayGamesPlatform)Social.Active).ShowLeaderboardUI (leaderboard);
+		((PlayGamesPlatform)Social.Active).ShowLeaderboardUI (Leaderboard);
 	}
 
 }

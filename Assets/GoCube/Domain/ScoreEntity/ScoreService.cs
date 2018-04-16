@@ -1,39 +1,41 @@
 ﻿using System;
+using GoCube.Domain.Score;
 
 namespace GoCube.Domain.ScoreEntity {
     
     public class ScoreService {
         
-        private readonly IScoreRepository scoreRepository;
-        private readonly MaxScoreRepository maxScoreRepository;
-        private readonly LeaderBoardScoreService leaderboardScoreService;
+        private readonly IScoreRepository _scoreRepository;
+        private readonly MaxScoreRepository _maxScoreRepository;
+        private readonly LeaderBoardScoreService _leaderboardScoreService;
 
         public event Action<int> ScoreChanged = delegate {  };
         public event Action<int> MaxScoreReached = delegate {  };
 
-        public ScoreService(IScoreRepository scoreRepository, MaxScoreRepository maxScoreRepository, LeaderBoardScoreService leaderboardScoreService) {
-            this.scoreRepository = scoreRepository;
-            this.leaderboardScoreService = leaderboardScoreService;
-            this.maxScoreRepository = maxScoreRepository;
+        public ScoreService(IScoreRepository scoreRepository, MaxScoreRepository maxScoreRepository,
+            LeaderBoardScoreService leaderboardScoreService) {
+            _scoreRepository = scoreRepository;
+            _leaderboardScoreService = leaderboardScoreService;
+            _maxScoreRepository = maxScoreRepository;
         }
         
         public void IncrementScore(int quantity) {
-            var actualScore = scoreRepository.Add(quantity);
+            var actualScore = _scoreRepository.Add(quantity);
             ScoreChanged(actualScore);
-            var maxScore = maxScoreRepository.Find();
+            var maxScore = _maxScoreRepository.Find();
             if (actualScore > maxScore) {
-                maxScoreRepository.Update(actualScore);
+                _maxScoreRepository.Update(actualScore);
                 MaxScoreReached(actualScore);
-                leaderboardScoreService.UpdateLeaderBoard(actualScore);
+                _leaderboardScoreService.UpdateLeaderBoard(actualScore);
             }
         }
 
         public void ClearScore() {
-            scoreRepository.Clear();
+            _scoreRepository.Clear();
         }
 
         public int FindMaxScore() {
-            return maxScoreRepository.Find();
+            return _maxScoreRepository.Find();
         }
     }
 }
