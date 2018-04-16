@@ -12,12 +12,16 @@ namespace GoCube.Presentation.GameOver
             _gameOverUi = gameOverUi;
             _gameEvents = gameEvents;
             Init();
-            _gameOverUi.Hide();
         }
 
         private void Init()
         {
             _gameEvents.OnPlayerDies += ShowGameOver;
+        }
+
+        public void GameInitialized()
+        {
+            _gameOverUi.Hide();
         }
 
         public void Destroy()

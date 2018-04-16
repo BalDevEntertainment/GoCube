@@ -1,18 +1,17 @@
 ﻿using System;
-using UnityEngine.UI;
 
-namespace GoCube.Domain.Score {
+namespace GoCube.Domain.ScoreEntity {
     
     public class ScoreService {
         
-        private readonly ScoreRepository scoreRepository;
-        private readonly LeaderBoardScoreService leaderboardScoreService;
+        private readonly IScoreRepository scoreRepository;
         private readonly MaxScoreRepository maxScoreRepository;
+        private readonly LeaderBoardScoreService leaderboardScoreService;
 
         public event Action<int> ScoreChanged = delegate {  };
         public event Action<int> MaxScoreReached = delegate {  };
 
-        public ScoreService(ScoreRepository scoreRepository, MaxScoreRepository maxScoreRepository, LeaderBoardScoreService leaderboardScoreService) {
+        public ScoreService(IScoreRepository scoreRepository, MaxScoreRepository maxScoreRepository, LeaderBoardScoreService leaderboardScoreService) {
             this.scoreRepository = scoreRepository;
             this.leaderboardScoreService = leaderboardScoreService;
             this.maxScoreRepository = maxScoreRepository;

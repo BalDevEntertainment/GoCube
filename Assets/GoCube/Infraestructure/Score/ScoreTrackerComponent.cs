@@ -1,5 +1,5 @@
 ﻿using GoCube.Domain.Provider;
-using GoCube.Domain.Score;
+using GoCube.Domain.ScoreEntity;
 using UnityEngine;
 
 namespace GoCube.Infraestructure.Score

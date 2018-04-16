@@ -6,6 +6,8 @@ namespace GoCube.Domain.GameEntity
     {
         event Action<bool> OnPlayerDies;
         event Action OnGameStart;
+        event Action OnGameInitialized;
+        event Action<float> OnAddScoreToExperience;
         void StartGame();
         void RestartGame();
         void ResumeGame();
