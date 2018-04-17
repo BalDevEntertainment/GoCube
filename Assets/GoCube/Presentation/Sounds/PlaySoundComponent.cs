@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GoCube.Presentation
+namespace GoCube.Presentation.Sounds
 {
 	public class PlaySoundComponent : MonoBehaviour
 	{
