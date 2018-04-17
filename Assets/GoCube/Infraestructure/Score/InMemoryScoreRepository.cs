@@ -1,7 +1,7 @@
-﻿using GoCube.Domain.Score;
+﻿using GoCube.Domain.ScoreEntity;
 
 namespace GoCube.Infraestructure.Score {
-    public class InMemoryScoreRepository : ScoreRepository {
+    public class InMemoryScoreRepository : IScoreRepository {
 
         private int _score;
         
