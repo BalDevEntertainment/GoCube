@@ -27,6 +27,14 @@ namespace GoCube.Domain.ExperienceEntity
             _score.ScoreChanged += OnScoreChanged;
             _experienceService.OnNextLevelReached += NextLevelReached;
             _gameEvents.OnAddScoreToExperience += SaveExperienceGained;
+            _experienceUi.OnUiLoaded += UiLoaded;
+        }
+
+        private void UiLoaded()
+        {
+            _experienceUi.SetExperienceBarValue(_experienceService.CurrentExperience(),
+                _experienceService.NextLevelRequirement());
+            _experienceUi.SetLevel(_experienceService.CurrentLevel());
         }
 
         public void Destroy()
@@ -34,14 +42,14 @@ namespace GoCube.Domain.ExperienceEntity
             _score.ScoreChanged -= OnScoreChanged;
             _experienceService.OnNextLevelReached -= NextLevelReached;
             _gameEvents.OnAddScoreToExperience -= SaveExperienceGained;
+            _experienceUi.OnUiLoaded -= UiLoaded;
         }
 
         private void SaveExperienceGained(float inSeconds)
         {
             _experienceUi.SetLevel(_experienceService.CurrentLevel());
-            _experienceUi.SetExperienceBarValue(_experienceService.CurrentExperience());
             _experienceService.IncrementExperience(_gainedExperience);
-            _experienceUi.FillExperienceBar(_gainedExperience, inSeconds);
+            _experienceUi.FillExperienceBar(_gainedExperience, _experienceService.NextLevelRequirement(), inSeconds);
             _gainedExperience = 0;
         }
 

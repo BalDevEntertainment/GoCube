@@ -1,10 +1,13 @@
-﻿namespace GoCube.Presentation.ExperienceUi
+﻿using System;
+
+namespace GoCube.Presentation.ExperienceUi
 {
     public interface IExperienceUi
     {
-        void FillExperienceBar(int amount, float inSeconds);
+        event Action OnUiLoaded;
+        void FillExperienceBar(int amount,  int experienceRequiredForNextLevel, float inSeconds);
         void NextLevelReached();
-        void SetExperienceBarValue(int value);
+        void SetExperienceBarValue(int currentExperience, int nextLevelRequirement);
         void SetLevel(int currentLevel);
     }
 }

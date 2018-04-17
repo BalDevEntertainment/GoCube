@@ -2,7 +2,7 @@
 {
     public interface IGameOverUi
     {
-        void Show();
+        void Show(bool hasRevived);
         void Hide();
     }
 }
