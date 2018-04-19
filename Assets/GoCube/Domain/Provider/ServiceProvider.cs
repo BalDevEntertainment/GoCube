@@ -1,4 +1,5 @@
 ﻿using GoCube.Domain.Ads;
+using GoCube.Domain.Economy;
 using GoCube.Domain.ExperienceEntity;
 using GoCube.Domain.GameEntity;
 using GoCube.Domain.Score;
@@ -31,6 +32,10 @@ namespace GoCube.Domain.Provider {
 
         public static LeaderBoardScoreService ProvideLeaderBoardScore() {
             return ProviderCache.GetOrInstanciate<LeaderBoardScoreService>(() => new LeaderBoardScoreService("CgkIvJL6kN8LEAIQAA"));
+        }
+
+        public static EconomyService ProvideEconomy() {
+            return ProviderCache.GetOrInstanciate<EconomyService>(() => new EconomyService(InfrastructureProvider.ProvideEconomy()));
         }
     }
 }
