@@ -11,7 +11,6 @@ namespace GoCube.Presentation.ScoreUi
         [SerializeField] private Text _maxScoreText;
         [SerializeField] private Text _scoreText;
 
-        private float _depleteScoreInSeconds;
         private Score _score;
         private bool _shouldDecrease;
         private float _acumulatedTime;
@@ -42,7 +41,7 @@ namespace GoCube.Presentation.ScoreUi
 
         private bool HasReachedDepleteTime()
         {
-            return _acumulatedTime > _depleteScoreInSeconds;
+            return _acumulatedTime > 1;
         }
 
         public void Show()
@@ -66,9 +65,8 @@ namespace GoCube.Presentation.ScoreUi
             _scoreText.text = _currentScoreValue.ToString("0000");
         }
 
-        public void DecreaseScoreToZero(float inSeconds)
+        public void DecreaseScoreToZero()
         {
-            _depleteScoreInSeconds = inSeconds;
             _animator.SetTrigger("Bounce");
         }
 
@@ -89,7 +87,7 @@ namespace GoCube.Presentation.ScoreUi
 
         private float CalculateCurrentDepletionValue()
         {
-            var actualDepletionPercentage = _acumulatedTime * 100 / _depleteScoreInSeconds;
+            var actualDepletionPercentage = _acumulatedTime * 100;
             return _currentScoreValue - actualDepletionPercentage * _currentScoreValue / 100;
         }
 

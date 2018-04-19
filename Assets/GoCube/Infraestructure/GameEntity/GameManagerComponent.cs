@@ -14,7 +14,7 @@ namespace GoCube.Infraestructure.GameEntity {
         public event Action<bool> OnPlayerDies = delegate { };
         public event Action OnGameStart = delegate { };
         public event Action OnGameInitialized = delegate { };
-        public event Action<float> OnAddScoreToExperience = delegate { };
+        public event Action OnAddScoreToExperience = delegate { };
 
         public GameObject EnemyPrefab;
         [SerializeField] private PlayerComponent _player;
@@ -42,9 +42,8 @@ namespace GoCube.Infraestructure.GameEntity {
 
         public void RestartGame()
         {
-            var addSecondsTime = 1;
-            OnAddScoreToExperience.Invoke(addSecondsTime);
-            StartCoroutine(ReloadScene(addSecondsTime + 1));
+            OnAddScoreToExperience.Invoke();
+            StartCoroutine(ReloadScene(2));
         }
 
         private IEnumerator ReloadScene(int waitTime)

@@ -12,15 +12,12 @@ namespace GoCube.Presentation.ExperienceUi
 		public event Action OnUiLoaded = delegate {  };
 		[SerializeField] private LevelComponent _level;
 		private const float Tolerance = 0.01f;
-		private float _fillExperienceBarInSeconds;
 		private Experience _experience;
-		private bool _fillBar;
-		private int _fillBarUntil;
+		private FillBarMethod _fillBarMethod = FillBarMethod.None;
 		private Slider _experienceBar;
-		private float _currentExperienceBarValue;
 		private float _acumulatedTime;
-		private float _previousValue;
-		private int _experienceRequiredForNextLevel;
+		private ExperienceViewModel _currentExperienceViewModel;
+		private ExperienceViewModel _newExperienceViewModel;
 
 		private void Awake()
 		{
@@ -35,56 +32,90 @@ namespace GoCube.Presentation.ExperienceUi
 			OnUiLoaded.Invoke();
 		}
 
-		private void Update()
+		public void UpdateExperienceBar(ExperienceViewModel experienceViewModel)
 		{
-			if (!_fillBar) return;
-			_acumulatedTime += Time.deltaTime;
-			if (HasReachedFillTime())
+			_level.Setlevel(experienceViewModel.CurrentLevel);
+			_experienceBar.value = (float) experienceViewModel.CurrentExperience / experienceViewModel.NextLevelRequirement;
+			_currentExperienceViewModel = experienceViewModel;
+		}
+
+		public void FillExperienceBar(ExperienceViewModel newExperienceViewModel)
+		{
+			_acumulatedTime = 0;
+			_newExperienceViewModel = newExperienceViewModel;
+			if (!HasGainedALevel(newExperienceViewModel))
 			{
-				ResetFilling();
+				_fillBarMethod = FillBarMethod.RiseCurrentLevel;
 			}
 			else
 			{
-				RiseExperienceBarValue();
+				_fillBarMethod = FillBarMethod.CompleteCurrentLevel;
 			}
 		}
 
-		public void FillExperienceBar(int amount, int experienceRequiredForNextLevel, float inSeconds)
+		private bool HasGainedALevel(ExperienceViewModel newExperienceViewModel)
 		{
-			_fillBar = true;
-			_fillBarUntil = amount;
-			_fillExperienceBarInSeconds = inSeconds;
-			_experienceRequiredForNextLevel = experienceRequiredForNextLevel;
+			return _currentExperienceViewModel.CurrentLevel < newExperienceViewModel.CurrentLevel;
 		}
 
-		public void NextLevelReached()
+		private void Update()
 		{
-			Debug.Log("NextLevelReached!!!!");
-		}
+			if (_fillBarMethod == FillBarMethod.None) return;
+			_acumulatedTime += Time.deltaTime;
 
-		public void SetExperienceBarValue(int currentExperience, int experienceRequirement)
-		{
-			_experienceBar.value = (float) currentExperience / experienceRequirement;
-			_previousValue = _experienceBar.value;
-		}
-
-		public void SetLevel(int currentLevel)
-		{
-			_level.Setlevel(currentLevel);
-		}
-
-		private void RiseExperienceBarValue()
-		{
-			_experienceBar.value = Mathf.Lerp(_previousValue, _previousValue + (float) _fillBarUntil / _experienceRequiredForNextLevel, _acumulatedTime / _fillExperienceBarInSeconds);
-			if (HasBarReachedMaxValue())
+			switch (_fillBarMethod)
 			{
-				SetExperienceBarValue(0, _experienceRequiredForNextLevel);
-				_level.IncreaseLevel();
-				_experienceRequiredForNextLevel = _experience.NextLevelRequirement();
+				case FillBarMethod.RiseCurrentLevel:
+					RiseExperienceBarCurrentLevel();
+					break;
+				case FillBarMethod.CompleteCurrentLevel:
+					RiseExperienceBarToCompleteCurrentLevel();
+					break;
+				case FillBarMethod.None:
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
 		}
 
-		private bool HasBarReachedMaxValue()
+		private void RiseExperienceBarCurrentLevel()
+		{
+			_experienceBar.value = Mathf.Lerp(
+				(float) _currentExperienceViewModel.CurrentExperience / _currentExperienceViewModel.NextLevelRequirement,
+				(float) _newExperienceViewModel.CurrentExperience / _newExperienceViewModel.NextLevelRequirement,
+				_acumulatedTime);
+
+			if (HasReachedDesiredValue())
+			{
+				_currentExperienceViewModel = _newExperienceViewModel;
+				_fillBarMethod = FillBarMethod.None;
+			}
+		}
+
+		private void RiseExperienceBarToCompleteCurrentLevel()
+		{
+			_experienceBar.value = Mathf.Lerp(
+				(float) _currentExperienceViewModel.CurrentExperience / _currentExperienceViewModel.NextLevelRequirement,
+				1,
+				_acumulatedTime * 2);
+			if (HasReachedMaxValue())
+			{
+				_level.IncreaseLevel();
+				_acumulatedTime = 0;
+				_currentExperienceViewModel = new ExperienceViewModel(0,
+					_newExperienceViewModel.NextLevelRequirement, _newExperienceViewModel.CurrentLevel,
+					_newExperienceViewModel.EnemiesUnlocked);
+				_fillBarMethod = FillBarMethod.RiseCurrentLevel;
+			}
+		}
+
+		private bool HasReachedDesiredValue()
+		{
+			return Math.Abs(_experienceBar.value - (float) _newExperienceViewModel.CurrentExperience /
+			                _newExperienceViewModel.NextLevelRequirement) < Tolerance;
+		}
+
+		private bool HasReachedMaxValue()
 		{
 			return Math.Abs(_experienceBar.value - 1) < Tolerance;
 		}
@@ -93,16 +124,11 @@ namespace GoCube.Presentation.ExperienceUi
 		{
 			_experience.Destroy();
 		}
+	}
 
-		private bool HasReachedFillTime()
-		{
-			return _acumulatedTime > _fillExperienceBarInSeconds;
-		}
-
-		private void ResetFilling()
-		{
-			_fillBar = false;
-			_acumulatedTime = 0;
-		}
+	enum FillBarMethod
+	{
+		CompleteCurrentLevel, RiseCurrentLevel, None
 	}
 }
+

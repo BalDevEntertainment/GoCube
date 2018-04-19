@@ -2,7 +2,7 @@
 {
     public interface IPlayerLevelProgression
     {
-        int GetLevelForExp(int previousExperience);
         int GetExperienceRequirementForLevel(int level);
+        int GetUnlockedEnemies(int currentLevel);
     }
 }

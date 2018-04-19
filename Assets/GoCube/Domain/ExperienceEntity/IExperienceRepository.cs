@@ -2,7 +2,9 @@
 {
     public interface IExperienceRepository
     {
-        int Add(int quantity);
         int CurrentExperience();
+        int CurrentLevel();
+        void SetLevel(int level);
+        void SetExperience(int value);
     }
 }

@@ -6,10 +6,10 @@ namespace GoCube.Domain.ExperienceEntity
 {
     public class Experience
     {
-        private IExperienceUi _experienceUi;
+        private readonly IExperienceUi _experienceUi;
+        private readonly IGameEvents _gameEvents;
         private readonly ScoreService _score;
         private readonly ExperienceService _experienceService;
-        private IGameEvents _gameEvents;
         private int _gainedExperience;
 
         public Experience(IExperienceUi experienceUi, ScoreService score,
@@ -25,47 +25,33 @@ namespace GoCube.Domain.ExperienceEntity
         private void Init()
         {
             _score.ScoreChanged += OnScoreChanged;
-            _experienceService.OnNextLevelReached += NextLevelReached;
-            _gameEvents.OnAddScoreToExperience += SaveExperienceGained;
+            _gameEvents.OnAddScoreToExperience += AddScoreToExperience;
             _experienceUi.OnUiLoaded += UiLoaded;
         }
 
         private void UiLoaded()
         {
-            _experienceUi.SetExperienceBarValue(_experienceService.CurrentExperience(),
-                _experienceService.NextLevelRequirement());
-            _experienceUi.SetLevel(_experienceService.CurrentLevel());
+            _experienceUi.UpdateExperienceBar(_experienceService.GetCurrentExperienceViewModel());
         }
 
         public void Destroy()
         {
             _score.ScoreChanged -= OnScoreChanged;
-            _experienceService.OnNextLevelReached -= NextLevelReached;
-            _gameEvents.OnAddScoreToExperience -= SaveExperienceGained;
+            _gameEvents.OnAddScoreToExperience -= AddScoreToExperience;
             _experienceUi.OnUiLoaded -= UiLoaded;
         }
 
-        private void SaveExperienceGained(float inSeconds)
+        private void AddScoreToExperience()
         {
-            _experienceUi.SetLevel(_experienceService.CurrentLevel());
+            _experienceUi.UpdateExperienceBar(_experienceService.GetCurrentExperienceViewModel());
             _experienceService.IncrementExperience(_gainedExperience);
-            _experienceUi.FillExperienceBar(_gainedExperience, _experienceService.NextLevelRequirement(), inSeconds);
+            _experienceUi.FillExperienceBar(_experienceService.GetCurrentExperienceViewModel());
             _gainedExperience = 0;
         }
 
         private void OnScoreChanged(int currentScore)
         {
             _gainedExperience = currentScore;
-        }
-
-        private void NextLevelReached()
-        {
-            _experienceUi.NextLevelReached();
-        }
-
-        public int NextLevelRequirement()
-        {
-            return _experienceService.NextLevelRequirement();
         }
     }
 }

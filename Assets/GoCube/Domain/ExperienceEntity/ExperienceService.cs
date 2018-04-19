@@ -1,5 +1,6 @@
 ﻿using System;
 using GoCube.Domain.PlayerEntity;
+using GoCube.Presentation.ExperienceUi;
 
 namespace GoCube.Domain.ExperienceEntity
 {
@@ -16,36 +17,50 @@ namespace GoCube.Domain.ExperienceEntity
             _experienceRepository = experienceRepository;
         }
 
-        public void IncrementExperience(int quantity)
+        public ExperienceViewModel IncrementExperience(int quantity)
         {
             var previousExperience = _experienceRepository.CurrentExperience();
-            var actualExperience = _experienceRepository.Add(quantity);
-            if (HasReachedNewLevel(previousExperience, actualExperience))
+            var actualExperience = previousExperience + quantity;
+            if (HasReachedNewLevel(actualExperience))
             {
-                OnNextLevelReached();
+                LevelUp(actualExperience);
             }
+            else
+            {
+                _experienceRepository.SetExperience(actualExperience);
+            }
+
+            return BuildCurrentExperienceViewModel();
         }
 
-        private bool HasReachedNewLevel(int previousExperience, int actualExperience)
+        public ExperienceViewModel GetCurrentExperienceViewModel()
         {
-            return _playerLevelProgression.GetLevelForExp(previousExperience) <
-                   _playerLevelProgression.GetLevelForExp(actualExperience);
+            return BuildCurrentExperienceViewModel();
         }
 
-        public int CurrentExperience()
+        private ExperienceViewModel BuildCurrentExperienceViewModel()
         {
-            return _experienceRepository.CurrentExperience();
+            return new ExperienceViewModel(_experienceRepository.CurrentExperience(),
+                _playerLevelProgression.GetExperienceRequirementForLevel(_experienceRepository.CurrentLevel()),
+                _experienceRepository.CurrentLevel(),
+                _playerLevelProgression.GetUnlockedEnemies(_experienceRepository.CurrentLevel()));
         }
 
-        public int NextLevelRequirement()
+        private void LevelUp(int actualExperience)
         {
-            return _playerLevelProgression.GetExperienceRequirementForLevel(
-                _playerLevelProgression.GetLevelForExp(_experienceRepository.CurrentExperience()));
+            var neededExperience =
+                _playerLevelProgression.GetExperienceRequirementForLevel(
+                    _experienceRepository.CurrentLevel());
+            actualExperience = actualExperience - neededExperience;
+            _experienceRepository.SetLevel(_experienceRepository.CurrentLevel() + 1);
+            _experienceRepository.SetExperience(actualExperience);
+            OnNextLevelReached();
         }
 
-        public int CurrentLevel()
+        private bool HasReachedNewLevel(int actualExperience)
         {
-            return _playerLevelProgression.GetLevelForExp(_experienceRepository.CurrentExperience());
+            return actualExperience >=
+                _playerLevelProgression.GetExperienceRequirementForLevel(_experienceRepository.CurrentLevel());
         }
     }
 }
