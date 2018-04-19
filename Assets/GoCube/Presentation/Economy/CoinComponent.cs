@@ -14,7 +14,8 @@ namespace GoCube.Presentation.Economy {
 
 		private void OnTriggerEnter2D(Collider2D other) {
 			economyService.IncrementCoins(1);
-			Destroy(gameObject);
+			if(other.transform.parent.name == "Alien Player")
+				Destroy(gameObject);
 		}
 	}
 }

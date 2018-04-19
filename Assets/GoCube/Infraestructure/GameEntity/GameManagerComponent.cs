@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.GoCube.Domain.Spawner;
+using GoCube.Domain.Economy;
 using GoCube.Domain.GameCamera;
 using GoCube.Domain.GameEntity;
 using GoCube.Presentation.PlayerEntity;
@@ -17,6 +18,8 @@ namespace GoCube.Infraestructure.GameEntity {
         public event Action<float> OnAddScoreToExperience = delegate { };
 
         public GameObject EnemyPrefab;
+        public GameObject CoinPrefab;
+
         [SerializeField] private PlayerComponent _player;
         [SerializeField] private CameraPointer _anchor;
         [SerializeField] private UnityEngine.Camera _camera;
@@ -26,11 +29,13 @@ namespace GoCube.Infraestructure.GameEntity {
 
         public void StartGame() {
             var enemySpawner = new EnemySpawner(new PointerDistanceTrigger(_anchor, 6));
-            enemySpawner.NewSpawn += OnNewSpawn;
+            enemySpawner.NewSpawn += OnNewEnemySpawn;
+            var coinsSpawner = new CoinsSpawner(new PointerDistanceTrigger(_anchor, 3));
+            coinsSpawner.NewSpawn += OnNewCoinSpawn;
             OnGameStart();
         }
 
-        private void OnNewSpawn() {
+        private void OnNewEnemySpawn() {
             var anchorTransform = _anchor.transform;
             var random = new System.Random();
             var enemy = Instantiate(EnemyPrefab, new Vector3(anchorTransform.position.x + random.Next(5, 8),
@@ -38,6 +43,15 @@ namespace GoCube.Infraestructure.GameEntity {
                     EnemyPrefab.transform.position.z),
                 Quaternion.identity);
             _enemies.Add(enemy);
+        }
+
+        private void OnNewCoinSpawn(int quantity) {
+            var anchorTransform = _anchor.transform;
+            var random = new System.Random();
+            Instantiate(CoinPrefab, new Vector3(anchorTransform.position.x + random.Next(5, 8),
+                    CoinPrefab.transform.position.y,
+                    CoinPrefab.transform.position.z),
+                Quaternion.identity);
         }
 
         public void RestartGame()
