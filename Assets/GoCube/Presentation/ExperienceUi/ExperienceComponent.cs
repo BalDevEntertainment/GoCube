@@ -9,6 +9,7 @@ namespace GoCube.Presentation.ExperienceUi
 {
 	public class ExperienceComponent : MonoBehaviour, IExperienceUi
 	{
+		public event Action OnUiLoaded = delegate {  };
 		[SerializeField] private LevelComponent _level;
 		private const float Tolerance = 0.01f;
 		private float _fillExperienceBarInSeconds;
@@ -18,16 +19,20 @@ namespace GoCube.Presentation.ExperienceUi
 		private Slider _experienceBar;
 		private float _currentExperienceBarValue;
 		private float _acumulatedTime;
-		private int _experienceNeededForNextLevel;
 		private float _previousValue;
+		private int _experienceRequiredForNextLevel;
 
 		private void Awake()
 		{
+			_experienceBar = GetComponentInChildren<Slider>();
 			_experience = new Experience(this, ServiceProvider.ProvideScore(),
 				ServiceProvider.ProvideExperience(),
 				GameObject.FindWithTag("GameManager").GetComponent<GameManagerComponent>());
-			_experienceBar = GetComponentInChildren<Slider>();
-			_experienceNeededForNextLevel = _experience.NextLevelRequirement();
+		}
+
+		private void Start()
+		{
+			OnUiLoaded.Invoke();
 		}
 
 		private void Update()
@@ -44,11 +49,12 @@ namespace GoCube.Presentation.ExperienceUi
 			}
 		}
 
-		public void FillExperienceBar(int amount, float inSeconds)
+		public void FillExperienceBar(int amount, int experienceRequiredForNextLevel, float inSeconds)
 		{
 			_fillBar = true;
 			_fillBarUntil = amount;
 			_fillExperienceBarInSeconds = inSeconds;
+			_experienceRequiredForNextLevel = experienceRequiredForNextLevel;
 		}
 
 		public void NextLevelReached()
@@ -56,9 +62,9 @@ namespace GoCube.Presentation.ExperienceUi
 			Debug.Log("NextLevelReached!!!!");
 		}
 
-		public void SetExperienceBarValue(int value)
+		public void SetExperienceBarValue(int currentExperience, int experienceRequirement)
 		{
-			_experienceBar.value = (float) value / _experienceNeededForNextLevel;
+			_experienceBar.value = (float) currentExperience / experienceRequirement;
 			_previousValue = _experienceBar.value;
 		}
 
@@ -69,12 +75,12 @@ namespace GoCube.Presentation.ExperienceUi
 
 		private void RiseExperienceBarValue()
 		{
-			_experienceBar.value = Mathf.Lerp(_previousValue, _previousValue + (float) _fillBarUntil / _experienceNeededForNextLevel, _acumulatedTime / _fillExperienceBarInSeconds);
+			_experienceBar.value = Mathf.Lerp(_previousValue, _previousValue + (float) _fillBarUntil / _experienceRequiredForNextLevel, _acumulatedTime / _fillExperienceBarInSeconds);
 			if (HasBarReachedMaxValue())
 			{
-				SetExperienceBarValue(0);
+				SetExperienceBarValue(0, _experienceRequiredForNextLevel);
 				_level.IncreaseLevel();
-				_experienceNeededForNextLevel = _experience.NextLevelRequirement();
+				_experienceRequiredForNextLevel = _experience.NextLevelRequirement();
 			}
 		}
 

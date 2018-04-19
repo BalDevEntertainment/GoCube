@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Assets.GoCube.Domain.Spawner;
 using GoCube.Domain.GameCamera;
@@ -15,16 +16,13 @@ namespace GoCube.Infraestructure.GameEntity {
         public event Action OnGameInitialized = delegate { };
         public event Action<float> OnAddScoreToExperience = delegate { };
 
-        private string _androidGameId = "1755417";
-
-        [SerializeField] private PlayerComponent _player;
-
-        [SerializeField] private CameraPointer _anchor;
-        [SerializeField] private float _experienceLoadSeconds;
-
-        private readonly List<GameObject> _enemies = new List<GameObject>();
-
         public GameObject EnemyPrefab;
+        [SerializeField] private PlayerComponent _player;
+        [SerializeField] private CameraPointer _anchor;
+        [SerializeField] private UnityEngine.Camera _camera;
+
+        private string _androidGameId = "1755417";
+        private readonly List<GameObject> _enemies = new List<GameObject>();
 
         public void StartGame() {
             var enemySpawner = new EnemySpawner(new PointerDistanceTrigger(_anchor, 6));
@@ -42,8 +40,20 @@ namespace GoCube.Infraestructure.GameEntity {
             _enemies.Add(enemy);
         }
 
-        public void RestartGame() {
-            SceneManager.LoadScene("MainScene");
+        public void RestartGame()
+        {
+            var addSecondsTime = 1;
+            OnAddScoreToExperience.Invoke(addSecondsTime);
+            StartCoroutine(ReloadScene(addSecondsTime + 1));
+        }
+
+        private IEnumerator ReloadScene(int waitTime)
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(waitTime);
+                SceneManager.LoadScene("MainScene");
+            }
         }
 
         public void ResumeGame() {
@@ -56,11 +66,7 @@ namespace GoCube.Infraestructure.GameEntity {
         }
 
         private void Start() {
-            _player.SetOnDeath(() =>
-            {
-                OnAddScoreToExperience.Invoke(_experienceLoadSeconds);
-                OnPlayerDies.Invoke(_player.HasRevived());
-            });
+            _player.SetOnDeath(() => OnPlayerDies.Invoke(_player.HasRevived()));
 
             _player.SetOnRevive(() => {
                 _enemies.ForEach(Destroy);

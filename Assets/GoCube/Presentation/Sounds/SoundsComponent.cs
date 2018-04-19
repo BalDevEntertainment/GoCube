@@ -6,6 +6,7 @@ namespace GoCube.Presentation.Sounds {
 
         public Sprite OnSprite;
         public Sprite OffSprite;
+        [SerializeField] private Toggle _music;
 
         private void Start() {
             GetComponentInChildren<Toggle>().onValueChanged.AddListener(SoundChanged);
@@ -16,6 +17,8 @@ namespace GoCube.Presentation.Sounds {
             AudioListener.pause = !on;
             GetComponentInChildren<Toggle>().image.sprite = on ? OnSprite : OffSprite;
             PlayerPrefs.SetString("sounds", on ? "true" : "false");
+            _music.onValueChanged.Invoke(on);
+            _music.interactable = on;
         }
 
         private void InitSound() {

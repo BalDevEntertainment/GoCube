@@ -5,10 +5,16 @@ namespace GoCube.Infraestructure.PlayerEntity
 {
     public class InMemoryPlayerLevelProgression : IPlayerLevelProgression
     {
-        private readonly Dictionary<int, int> _experienceRequiredForEachLevel = new Dictionary<int, int>
+        private readonly Dictionary<int, int> _experienceRequiredForEachLevel =
+            new Dictionary<int, int>();
+
+        public InMemoryPlayerLevelProgression()
         {
-            {1,0}, {2,100}, {3,300}, {4,800}, {5,1500}
-        };
+            for (int i = 1; i < 100; i++)
+            {
+                _experienceRequiredForEachLevel.Add(i,50);
+            }
+        }
 
         public int GetLevelForExp(int experience)
         {

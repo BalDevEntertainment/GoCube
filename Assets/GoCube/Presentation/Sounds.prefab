@@ -53,7 +53,7 @@ GameObject:
   - component: {fileID: 224512785924580246}
   - component: {fileID: 114683921365560966}
   m_Layer: 5
-  m_Name: Sounds
+  m_Name: SoundEffects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,6 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   OnSprite: {fileID: 21300000, guid: 201f506f6c25cdf41bcbd431bd337421, type: 3}
   OffSprite: {fileID: 21300000, guid: 1b0b9115601031f429d2ff1d740c9d4b, type: 3}
+  _music: {fileID: 114628157471891332}
 --- !u!114 &114845167745837852
 MonoBehaviour:
   m_ObjectHideFlags: 1
