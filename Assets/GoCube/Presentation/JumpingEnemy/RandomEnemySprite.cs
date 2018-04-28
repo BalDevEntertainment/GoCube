@@ -9,7 +9,8 @@ namespace GoCube.Presentation.JumpingEnemy
 		private void Start()
 		{
 			var currentLevel = ServiceProvider.ProvideExperience().GetCurrentExperienceViewModel().CurrentLevel;
-			GetComponent<Animator>().SetInteger("EnemyType", Random.Range(1, BaseValue + currentLevel));
+			var range = Random.Range(1, BaseValue + currentLevel);
+			GetComponent<Animator>().SetInteger("EnemyType", Mathf.Min(range, 6));
 		}
 	}
 }

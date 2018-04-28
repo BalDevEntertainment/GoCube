@@ -25,7 +25,7 @@ namespace GoCube.Infraestructure.PlayerEntity
 
         public int GetUnlockedEnemies(int currentLevel)
         {
-            return currentLevel >= 0 ? 1 : 0;
+            return currentLevel >= 3 ? 1 : 0;
         }
     }
 }

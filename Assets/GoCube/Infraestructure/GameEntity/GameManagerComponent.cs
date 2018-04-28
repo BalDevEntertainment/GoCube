@@ -22,15 +22,14 @@ namespace GoCube.Infraestructure.GameEntity {
 
         [SerializeField] private PlayerComponent _player;
         [SerializeField] private CameraPointer _anchor;
-        [SerializeField] private UnityEngine.Camera _camera;
 
         private string _androidGameId = "1755417";
         private readonly List<GameObject> _enemies = new List<GameObject>();
 
         public void StartGame() {
-            var enemySpawner = new EnemySpawner(new PointerDistanceTrigger(_anchor, 6));
+            var enemySpawner = new EnemySpawner(new PointerDistanceTrigger(_anchor, 6, 75));
             enemySpawner.NewSpawn += OnNewEnemySpawn;
-            var coinsSpawner = new CoinsSpawner(new PointerDistanceTrigger(_anchor, 3));
+            var coinsSpawner = new CoinsSpawner(new PointerDistanceTrigger(_anchor, 15, 20));
             coinsSpawner.NewSpawn += OnNewCoinSpawn;
             OnGameStart();
         }

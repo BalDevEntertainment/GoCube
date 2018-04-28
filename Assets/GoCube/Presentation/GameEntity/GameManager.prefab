@@ -51,8 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de981ed7a503420b8ee69e18947407d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
-  _anchor: {fileID: 0}
-  _experienceLoadSeconds: 1
   EnemyPrefab: {fileID: 1732063789904364, guid: b9273cf9a62a35c4db935d1e5a2af280,
     type: 2}
+  CoinPrefab: {fileID: 1474682235731508, guid: 16ca5210245ce734b9ee44aea580b583, type: 2}
+  _player: {fileID: 0}
+  _anchor: {fileID: 0}
+  _camera: {fileID: 0}
