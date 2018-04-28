@@ -1,6 +1,8 @@
-﻿using GoCube.Domain.ExperienceEntity;
+﻿using GoCube.Domain.Economy;
+using GoCube.Domain.ExperienceEntity;
 using GoCube.Domain.PlayerEntity;
 using GoCube.Domain.ScoreEntity;
+using GoCube.Infraestructure.Economy;
 using GoCube.Infraestructure.ExperienceEntity;
 using GoCube.Infraestructure.PlayerEntity;
 using GoCube.Infraestructure.Score;
@@ -32,5 +34,11 @@ namespace GoCube.Infraestructure.Provider
         {
              return ProviderCache.GetOrInstanciate<IPlayerLevelProgression>(() =>
                 new InMemoryPlayerLevelProgression());        }
+
+        public static EconomyRepository ProvideEconomy()
+        {
+            return ProviderCache.GetOrInstanciate<EconomyRepository>(() =>
+                new PlayerPrefsEconomyRepository());
+        }
     }
 }

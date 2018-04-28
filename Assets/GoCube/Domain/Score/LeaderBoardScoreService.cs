@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using GooglePlayGames;
+using UnityEngine;
 
 namespace GoCube.Domain.Score {
 
@@ -11,8 +12,8 @@ namespace GoCube.Domain.Score {
         }
 
         public void UpdateLeaderBoard(int actualScore) {
-            if (Social.localUser.authenticated) {
-                Social.ReportScore (actualScore, highScoreLeaderBoard, (bool success) => {
+            if (PlayGamesPlatform.Instance.localUser.authenticated) {
+                PlayGamesPlatform.Instance.ReportScore(actualScore, highScoreLeaderBoard, (bool success) => {
                     if (success) {
                         Debug.Log ("Update Score Success");
                     } else {

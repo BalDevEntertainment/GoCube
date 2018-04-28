@@ -17,10 +17,10 @@ public class GooglePlayServicesComponent : MonoBehaviour
 	}
 
 	public void OnShowLeaderBoard () {
-		if (!Social.localUser.authenticated) {
-			Social.localUser.Authenticate (authenticated => {
+		if (!PlayGamesPlatform.Instance.localUser.authenticated) {
+			PlayGamesPlatform.Instance.localUser.Authenticate (authenticated => {
 				if (authenticated) {
-					Social.ReportScore (_scoreService.FindMaxScore(), Leaderboard, success => {
+					PlayGamesPlatform.Instance.ReportScore (_scoreService.FindMaxScore(), Leaderboard, success => {
 						if (success) {
 							ShowLeaderBoard();
 						} else {
@@ -39,7 +39,7 @@ public class GooglePlayServicesComponent : MonoBehaviour
 
 
 	void ShowLeaderBoard() {
-		((PlayGamesPlatform)Social.Active).ShowLeaderboardUI (Leaderboard);
+		PlayGamesPlatform.Instance.ShowLeaderboardUI(Leaderboard);
 	}
 
 }
