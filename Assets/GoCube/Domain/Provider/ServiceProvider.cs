@@ -31,7 +31,7 @@ namespace GoCube.Domain.Provider {
         }
 
         public static LeaderBoardScoreService ProvideLeaderBoardScore() {
-            return ProviderCache.GetOrInstanciate<LeaderBoardScoreService>(() => new LeaderBoardScoreService("CgkIvJL6kN8LEAIQAA"));
+            return ProviderCache.GetOrInstanciate<LeaderBoardScoreService>(() => new LeaderBoardScoreService(LeaderboardManager.leaderboard_highscores));
         }
 
         public static EconomyService ProvideEconomy() {

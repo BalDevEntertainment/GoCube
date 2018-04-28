@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e19edc4a67587c448fbdcd2789e9019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Leaderboard: 
+  _leaderboard: Highscores
 --- !u!222 &222411314691583310
 CanvasRenderer:
   m_ObjectHideFlags: 1
