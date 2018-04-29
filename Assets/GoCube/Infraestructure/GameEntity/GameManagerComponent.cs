@@ -29,7 +29,7 @@ namespace GoCube.Infraestructure.GameEntity {
         public void StartGame() {
             var enemySpawner = new EnemySpawner(new PointerDistanceTrigger(_anchor, 6, 75));
             enemySpawner.NewSpawn += OnNewEnemySpawn;
-            var coinsSpawner = new CoinsSpawner(new PointerDistanceTrigger(_anchor, 15, 20));
+            var coinsSpawner = new CoinsSpawner(new PointerDistanceTrigger(_anchor, 15, 50));
             coinsSpawner.NewSpawn += OnNewCoinSpawn;
             OnGameStart();
         }

@@ -56,4 +56,3 @@ MonoBehaviour:
   CoinPrefab: {fileID: 1474682235731508, guid: 16ca5210245ce734b9ee44aea580b583, type: 2}
   _player: {fileID: 0}
   _anchor: {fileID: 0}
-  _camera: {fileID: 0}
