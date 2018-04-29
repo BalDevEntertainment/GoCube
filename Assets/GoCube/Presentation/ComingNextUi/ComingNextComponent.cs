@@ -28,7 +28,7 @@ namespace GoCube.Presentation.ComingNextUi
 
 		private void NextLevelReached()
 		{
-			if (_experienceService.GetCurrentExperienceViewModel().CurrentLevel == 3)
+			if (_experienceService.GetCurrentExperienceViewModel().EnemiesUnlocked >= 1)
 			{
 				ShowBoogerBat();
 			}
