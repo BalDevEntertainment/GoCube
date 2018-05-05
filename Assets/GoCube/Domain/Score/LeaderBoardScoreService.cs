@@ -12,7 +12,9 @@ namespace GoCube.Domain.Score {
         }
 
         public void UpdateLeaderBoard(int actualScore) {
-            if (PlayGamesPlatform.Instance.localUser.authenticated) {
+            var authenticated = PlayGamesPlatform.Instance.localUser.authenticated;
+            Debug.Log("Authenticated at update leaderboard: " + authenticated);
+            if (authenticated) {
                 PlayGamesPlatform.Instance.ReportScore(actualScore, highScoreLeaderBoard, (bool success) => {
                     if (success) {
                         Debug.Log ("Update Score Success");

@@ -5,36 +5,25 @@ using UnityEngine;
 
 public class GooglePlayServicesComponent : MonoBehaviour
 {
-    [SerializeField] private string _leaderboard;
-    private ScoreService _scoreService;
+
+    private void Awake() {
+        PlayGamesPlatform.Activate();
+    }
 
     void Start()
     {
-        PlayGamesPlatform.Activate();
-        _scoreService = ServiceProvider.ProvideScore();
-    }
-
-    public void OnShowLeaderBoard()
-    {
-        if (!PlayGamesPlatform.Instance.localUser.authenticated)
-        {
+        if (!PlayGamesPlatform.Instance.localUser.authenticated) {
             PlayGamesPlatform.Instance.localUser.Authenticate(authenticated =>
             {
-                if (authenticated)
-                {
-                    PlayGamesPlatform.Instance.ReportScore(_scoreService.FindMaxScore(),
-                        _leaderboard, success =>
-                        {
-                            if (success)
-                            {
-                                ShowLeaderBoard();
-                            }
-                        });
-                }
+                Debug.Log("Authenticated at init: " + authenticated);
             });
         }
-        else
-        {
+    }
+
+    public void OnShowLeaderBoard() {
+        var authenticated = PlayGamesPlatform.Instance.localUser.authenticated;
+        Debug.Log("Authenticated at show leaderboard: " + authenticated);
+        if (authenticated) {
             ShowLeaderBoard();
         }
     }
@@ -42,6 +31,6 @@ public class GooglePlayServicesComponent : MonoBehaviour
 
     void ShowLeaderBoard()
     {
-        PlayGamesPlatform.Instance.ShowLeaderboardUI(_leaderboard);
+        PlayGamesPlatform.Instance.ShowLeaderboardUI(LeaderboardManager.leaderboard_highscores);
     }
 }
