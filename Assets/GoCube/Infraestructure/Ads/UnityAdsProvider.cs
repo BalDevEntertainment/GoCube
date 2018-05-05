@@ -4,7 +4,7 @@ using UnityEngine.Advertisements;
 
 namespace GoCube.Infraestructure.Ads {
     public class UnityAdsProvider : IAdsProvider {
-        private string placementId = "rewardedVideo";
+        private string placementId = "video";
 
         public void ShowVideoReward(Action<VideoRewardResult> callback) {
             var options = new ShowOptions();

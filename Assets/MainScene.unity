@@ -1027,7 +1027,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _reviveButton: {fileID: 1810064542}
   _replayButton: {fileID: 1433891269}
-  _adsComponent: {fileID: 1810064543}
 --- !u!95 &719037626
 Animator:
   serializedVersion: 3
@@ -2297,7 +2296,6 @@ GameObject:
   - component: {fileID: 1810064546}
   - component: {fileID: 1810064545}
   - component: {fileID: 1810064544}
-  - component: {fileID: 1810064543}
   - component: {fileID: 1810064542}
   - component: {fileID: 1810064541}
   - component: {fileID: 1810064540}
@@ -2475,20 +2473,6 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &1810064543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 114744144928756646, guid: 37036e383b09143449447970c097720d,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1810064538}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bdb0854692367f40a668dfb3cf376a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AdsButton: {fileID: 1810064542}
-  placementId: video
 --- !u!114 &1810064544
 MonoBehaviour:
   m_ObjectHideFlags: 0
